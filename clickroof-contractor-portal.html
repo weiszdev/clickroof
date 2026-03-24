@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClickRoof Contractor Portal — Capital Exteriors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0B0F1A;
+      --bg2: #111827;
+      --bg3: #1A2234;
+      --border: rgba(255,255,255,0.07);
+      --amber: #F59E0B;
+      --amber-soft: rgba(245,158,11,0.1);
+      --green: #10B981;
+      --green-soft: rgba(16,185,129,0.1);
+      --red: #EF4444;
+      --red-soft: rgba(239,68,68,0.1);
+      --blue: #3B82F6;
+      --blue-soft: rgba(59,130,246,0.1);
+      --white: #F1F5F9;
+      --muted: #64748B;
+      --muted2: #334155;
+    }
+    html { height: 100%; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      height: 100%;
+      display: flex;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px; flex-shrink: 0;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      height: 100vh; position: sticky; top: 0;
+      overflow-y: auto;
+    }
+    .sidebar-logo {
+      padding: 1.5rem 1.25rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.3rem;
+    }
+    .sidebar-logo span { color: var(--amber); }
+    .sidebar-logo .company {
+      font-size: 0.75rem; color: var(--muted);
+      margin-top: 4px; font-weight: 500;
+    }
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; }
+    .nav-section { font-size: 0.65rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.75rem 0.5rem 0.4rem; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0.65rem 0.75rem; border-radius: 8px;
+      color: var(--muted); font-size: 0.875rem; font-weight: 500;
+      cursor: pointer; transition: all 0.15s; text-decoration: none;
+      margin-bottom: 2px;
+    }
+    .nav-item:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+    .nav-item.active { color: var(--white); background: var(--amber-soft); }
+    .nav-item.active .nav-icon { color: var(--amber); }
+    .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .nav-badge {
+      margin-left: auto; background: var(--amber);
+      color: var(--bg); font-size: 0.65rem; font-weight: 800;
+      padding: 1px 7px; border-radius: 50px;
+    }
+    .sidebar-user {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .user-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--amber), #D97706);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.8rem; color: var(--bg); flex-shrink: 0;
+    }
+    .user-name { font-size: 0.82rem; font-weight: 600; }
+    .user-role { font-size: 0.7rem; color: var(--muted); }
+
+    /* MAIN */
+    .main {
+      flex: 1; overflow-y: auto;
+      display: flex; flex-direction: column;
+    }
+    .topbar {
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; position: sticky; top: 0; z-index: 10;
+    }
+    .topbar-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; }
+    .topbar-sub { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .topbar-actions { display: flex; gap: 0.75rem; align-items: center; }
+    .btn-sm {
+      background: var(--amber); color: var(--bg);
+      font-family: 'DM Sans', sans-serif; font-weight: 700;
+      font-size: 0.82rem; border: none; border-radius: 8px;
+      padding: 0.5rem 1.1rem; cursor: pointer; transition: all 0.15s;
+    }
+    .btn-sm:hover { filter: brightness(1.1); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.05); color: var(--muted);
+      border: 1px solid var(--border);
+      font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+      border-radius: 8px; padding: 0.5rem 1.1rem; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-ghost:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+    .notification-btn {
+      position: relative; background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border); border-radius: 8px;
+      width: 36px; height: 36px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--muted); transition: all 0.15s;
+    }
+    .notification-btn:hover { color: var(--white); }
+    .notif-dot {
+      position: absolute; top: 6px; right: 6px;
+      width: 7px; height: 7px;
+      background: var(--red); border-radius: 50%;
+    }
+
+    /* CONTENT */
+    .content { padding: 2rem; flex: 1; }
+
+    /* METRICS */
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin-bottom: 1.75rem;
+    }
+    .metric-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem;
+      transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: rgba(245,158,11,0.2); }
+    .metric-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; margin-bottom: 0.75rem; }
+    .metric-value { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1; }
+    .metric-change { display: flex; align-items: center; gap: 4px; margin-top: 0.5rem; font-size: 0.75rem; }
+    .change-up { color: var(--green); }
+    .change-down { color: var(--red); }
+    .change-neutral { color: var(--muted); }
+
+    /* GRID 2-COL */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+    .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+
+    /* PANELS */
+    .panel {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .panel-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+    .panel-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .panel-body { padding: 1.25rem; }
+    .panel-link { font-size: 0.78rem; color: var(--amber); cursor: pointer; }
+
+    /* JOB BOARD */
+    .job-list { display: flex; flex-direction: column; gap: 0; }
+    .job-item {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 1rem;
+      transition: background 0.15s; cursor: pointer;
+    }
+    .job-item:last-child { border-bottom: none; }
+    .job-item:hover { background: rgba(255,255,255,0.02); }
+    .job-status {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .status-new { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+    .status-active { background: var(--green); }
+    .status-pending { background: var(--blue); }
+    .status-complete { background: var(--muted); }
+    .job-address { flex: 1; }
+    .job-address h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+    .job-address p { font-size: 0.72rem; color: var(--muted); }
+    .job-amount { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--amber); white-space: nowrap; }
+    .job-deposit { font-size: 0.7rem; color: var(--green); text-align: right; margin-top: 2px; }
+    .job-actions { display: flex; gap: 0.5rem; }
+    .action-btn {
+      padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.72rem;
+      font-weight: 700; cursor: pointer; border: none; transition: all 0.15s;
+    }
+    .action-accept { background: var(--green-soft); color: var(--green); }
+    .action-accept:hover { background: var(--green); color: var(--bg); }
+    .action-decline { background: var(--red-soft); color: var(--red); }
+    .action-decline:hover { background: var(--red); color: var(--white); }
+    .action-view { background: var(--blue-soft); color: var(--blue); }
+    .action-view:hover { background: var(--blue); color: var(--white); }
+
+    /* CHART BAR */
+    .chart-area { padding: 0.5rem 0; }
+    .chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 100px; margin-bottom: 0.5rem; }
+    .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .bar {
+      width: 100%; border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, var(--amber), rgba(245,158,11,0.4));
+      transition: all 0.3s; cursor: pointer;
+    }
+    .bar:hover { filter: brightness(1.2); }
+    .bar-label { font-size: 0.6rem; color: var(--muted); }
+    .bar-val { font-size: 0.65rem; color: var(--amber); font-weight: 600; }
+
+    /* STORM ALERT */
+    .storm-alert {
+      background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.05));
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 12px; padding: 1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .storm-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .storm-content h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .storm-content p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .storm-badge {
+      background: rgba(239,68,68,0.15); color: var(--red);
+      font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem;
+      border-radius: 4px; margin-left: auto; flex-shrink: 0; white-space: nowrap;
+    }
+
+    /* QUICK STATS ROW */
+    .quick-stats { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
+    .quick-stat {
+      flex: 1; background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.9rem 1rem;
+      text-align: center;
+    }
+    .quick-stat .qs-value { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--amber); }
+    .quick-stat .qs-label { font-size: 0.7rem; color: var(--muted); margin-top: 3px; }
+
+    /* RATING */
+    .rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem; }
+    .rating-label { font-size: 0.78rem; color: var(--muted); width: 80px; flex-shrink: 0; }
+    .rating-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+    .rating-bar { height: 100%; background: var(--amber); border-radius: 3px; }
+    .rating-count { font-size: 0.72rem; color: var(--muted); width: 20px; text-align: right; }
+
+    /* COVERAGE MAP PLACEHOLDER */
+    .map-placeholder {
+      background: linear-gradient(135deg, #0D1E3B, #1a2e4a);
+      border-radius: 10px; height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+    }
+    .map-pin { font-size: 2rem; }
+    .map-label { font-size: 0.8rem; color: var(--muted); }
+    .map-dot {
+      position: absolute; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--amber); opacity: 0.7;
+    }
+    .pulse-ring {
+      position: absolute; border-radius: 50%;
+      border: 2px solid rgba(245,158,11,0.3);
+      animation: mapPulse 2s ease infinite;
+    }
+    @keyframes mapPulse { 0%{transform:scale(0.8);opacity:1} 100%{transform:scale(2.5);opacity:0} }
+
+    /* TABS */
+    .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+    .tab {
+      padding: 0.7rem 1.25rem; font-size: 0.82rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent;
+      transition: all 0.15s; margin-bottom: -1px;
+    }
+    .tab:hover { color: var(--white); }
+    .tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: 0.85rem; }
+
+    /* TAGS */
+    .tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700;
+      padding: 0.15rem 0.55rem; border-radius: 4px;
+    }
+    .tag-new { background: var(--amber-soft); color: var(--amber); }
+    .tag-active { background: var(--green-soft); color: var(--green); }
+    .tag-pending { background: var(--blue-soft); color: var(--blue); }
+    .tag-done { background: rgba(255,255,255,0.06); color: var(--muted); }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 2px; }
+
+    @media (max-width: 1200px) {
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-2, .grid-3-1 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h1><span>Click</span>Roof</h1>
+      <div class="company">Capital Exteriors · Bismarck, ND</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a class="nav-item active" href="#">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a class="nav-item" href="#" onclick="switchView('jobs')">
+        <span class="nav-icon">🏠</span> Job Board
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" href="#" onclick="switchView('quotes')">
+        <span class="nav-icon">💬</span> Quotes Sent
+      </a>
+      <a class="nav-item" href="#" onclick="switchView('projects')">
+        <span class="nav-icon">🔨</span> Active Projects
+      </a>
+      <div class="nav-section">Business</div>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">💰</span> Revenue
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">⚙️</span> Pricing Config
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">📍</span> Service Areas
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">⭐</span> Reviews
+      </a>
+      <div class="nav-section">Account</div>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">🏢</span> Company Profile
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">🔔</span> Notifications
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">💳</span> Billing
+      </a>
+      <a class="nav-item" href="index.html">
+        <span class="nav-icon">🌐</span> Public Site
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar">JR</div>
+      <div>
+        <div class="user-name">Jon Roise</div>
+        <div class="user-role">Owner · Pro Plan</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Good morning, Jon 👋</div>
+        <div class="topbar-sub">Monday, March 23, 2026 · Bismarck, ND</div>
+      </div>
+      <div class="topbar-actions">
+        <div class="notification-btn"><span>🔔</span><span class="notif-dot"></span></div>
+        <button class="btn-ghost">Update Pricing</button>
+        <button class="btn-sm">+ Add Service Area</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- STORM ALERT -->
+      <div class="storm-alert">
+        <span class="storm-icon">⛈️</span>
+        <div class="storm-content">
+          <h4>Storm Alert: Significant hail event detected in Mandan, ND (March 21)</h4>
+          <p>Estimated 2.5" hail · 340 homes in your service area · High insurance claim likelihood. Consider activating Storm Response pricing.</p>
+        </div>
+        <span class="storm-badge">340 Homes</span>
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Revenue This Month</div>
+          <div class="metric-value" style="color:var(--amber);">$84,200</div>
+          <div class="metric-change"><span class="change-up">↑ 22%</span> <span style="color:var(--muted)">vs last month</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Active Deposits</div>
+          <div class="metric-value" style="color:var(--green);">3</div>
+          <div class="metric-change"><span class="change-up">↑ 1 new today</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Quotes Sent (30d)</div>
+          <div class="metric-value">47</div>
+          <div class="metric-change"><span class="change-up">↑ 8%</span> <span style="color:var(--muted)">close rate: 34%</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg Job Value</div>
+          <div class="metric-value">$16.4K</div>
+          <div class="metric-change"><span class="change-up">↑ $1.2K</span> <span style="color:var(--muted)">vs prior 30d</span></div>
+        </div>
+      </div>
+
+      <!-- QUICK STATS -->
+      <div class="quick-stats">
+        <div class="quick-stat">
+          <div class="qs-value">4.9 ⭐</div>
+          <div class="qs-label">Avg Rating</div>
+        </div>
+        <div class="quick-stat">
+          <div class="qs-value">34%</div>
+          <div class="qs-label">Close Rate</div>
+        </div>
+        <div class="quick-stat">
+          <div class="qs-value">#1</div>
+          <div class="qs-label">Bismarck Rank</div>
+        </div>
+        <div class="quick-stat">
+          <div class="qs-value">18h</div>
+          <div class="qs-label">Avg Response</div>
+        </div>
+        <div class="quick-stat">
+          <div class="qs-value">3</div>
+          <div class="qs-label">Markets Active</div>
+        </div>
+      </div>
+
+      <!-- JOB BOARD + CHART -->
+      <div class="grid-3-1">
+        <!-- JOB BOARD -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Job Board — New Deposits</div>
+              <div class="panel-sub">Homeowners who paid a deposit and are waiting on you</div>
+            </div>
+            <span class="panel-link">View All →</span>
+          </div>
+          <div class="tabs">
+            <div class="tab active">New (3)</div>
+            <div class="tab">In Progress (5)</div>
+            <div class="tab">Completed (42)</div>
+          </div>
+          <div class="job-list">
+            <div class="job-item">
+              <span class="job-status status-new"></span>
+              <div class="job-address">
+                <h4>1842 Riverview Dr · Bismarck</h4>
+                <p>Arch. Shingle · Hip Roof · 2,240 sqft · Deposited 2h ago <span class="tag tag-new">New</span></p>
+              </div>
+              <div>
+                <div class="job-amount">$14,850</div>
+                <div class="job-deposit">✓ $1,000 deposit</div>
+              </div>
+              <div class="job-actions">
+                <button class="action-btn action-accept" onclick="acceptJob(this)">Accept</button>
+                <button class="action-btn action-decline">Decline</button>
+              </div>
+            </div>
+            <div class="job-item">
+              <span class="job-status status-new"></span>
+              <div class="job-address">
+                <h4>504 N 14th St · Bismarck</h4>
+                <p>Metal Roof · Gable · 1,680 sqft · Deposited 6h ago <span class="tag tag-new">New</span></p>
+              </div>
+              <div>
+                <div class="job-amount">$29,200</div>
+                <div class="job-deposit">✓ $1,000 deposit</div>
+              </div>
+              <div class="job-actions">
+                <button class="action-btn action-accept" onclick="acceptJob(this)">Accept</button>
+                <button class="action-btn action-decline">Decline</button>
+              </div>
+            </div>
+            <div class="job-item">
+              <span class="job-status status-new"></span>
+              <div class="job-address">
+                <h4>2218 Northbrook Dr · Mandan</h4>
+                <p>3-Tab · Complex · 3,100 sqft · Storm claim <span class="tag tag-new">New</span></p>
+              </div>
+              <div>
+                <div class="job-amount">$18,400</div>
+                <div class="job-deposit">✓ $1,000 deposit</div>
+              </div>
+              <div class="job-actions">
+                <button class="action-btn action-accept" onclick="acceptJob(this)">Accept</button>
+                <button class="action-btn action-decline">Decline</button>
+              </div>
+            </div>
+            <div class="job-item" style="opacity:0.7;">
+              <span class="job-status status-active"></span>
+              <div class="job-address">
+                <h4>708 Burleigh Ave · Bismarck</h4>
+                <p>Arch. Shingle · Hip · 2,050 sqft · Sched. Apr 4 <span class="tag tag-active">In Progress</span></p>
+              </div>
+              <div>
+                <div class="job-amount">$13,600</div>
+                <div class="job-deposit">✓ Accepted</div>
+              </div>
+              <div class="job-actions">
+                <button class="action-btn action-view">View</button>
+              </div>
+            </div>
+            <div class="job-item" style="opacity:0.7;">
+              <span class="job-status status-pending"></span>
+              <div class="job-address">
+                <h4>1120 S 9th St · Bismarck</h4>
+                <p>Metal · Gable · 2,800 sqft · Sched. Apr 7 <span class="tag tag-pending">Scheduled</span></p>
+              </div>
+              <div>
+                <div class="job-amount">$41,200</div>
+                <div class="job-deposit">✓ Accepted</div>
+              </div>
+              <div class="job-actions">
+                <button class="action-btn action-view">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR PANELS -->
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          <!-- Revenue Chart -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Revenue (6 Months)</div>
+            </div>
+            <div class="panel-body">
+              <div class="chart-area">
+                <div class="chart-bars">
+                  <div class="bar-wrap">
+                    <div class="bar" style="height:35%;" title="$42K"></div>
+                    <span class="bar-label">Oct</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="height:28%;" title="$31K"></div>
+                    <span class="bar-label">Nov</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="height:20%;" title="$22K"></div>
+                    <span class="bar-label">Dec</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="height:42%;" title="$55K"></div>
+                    <span class="bar-label">Jan</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="height:52%;" title="$68K"></div>
+                    <span class="bar-label">Feb</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="height:65%;"></div>
+                    <span class="bar-label">Mar</span>
+                  </div>
+                </div>
+                <p style="font-size:0.7rem;color:var(--muted);text-align:center;">Mar on track for best month ever</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reviews -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Reviews · 5.0 ⭐</div>
+            </div>
+            <div class="panel-body">
+              <div class="rating-row">
+                <span class="rating-label">5 stars</span>
+                <div class="rating-bar-wrap"><div class="rating-bar" style="width:90%"></div></div>
+                <span class="rating-count">18</span>
+              </div>
+              <div class="rating-row">
+                <span class="rating-label">4 stars</span>
+                <div class="rating-bar-wrap"><div class="rating-bar" style="width:10%;background:var(--muted2)"></div></div>
+                <span class="rating-count">2</span>
+              </div>
+              <div class="rating-row">
+                <span class="rating-label">3 stars</span>
+                <div class="rating-bar-wrap"><div class="rating-bar" style="width:0%;"></div></div>
+                <span class="rating-count">0</span>
+              </div>
+              <p style="font-size:0.7rem;color:var(--muted);margin-top:0.75rem;line-height:1.5;">"They completed the whole roof in one day and the cleanup was impeccable." — Steven T.</p>
+            </div>
+          </div>
+
+          <!-- Service Area Map -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Service Areas (3)</div>
+            </div>
+            <div class="panel-body" style="padding:1rem;">
+              <div class="map-placeholder">
+                <div class="pulse-ring" style="width:40px;height:40px;top:calc(50% - 20px);left:calc(50% - 20px);"></div>
+                <div class="map-dot" style="top:calc(50% - 4px);left:calc(50% - 4px);"></div>
+                <div class="map-dot" style="top:40%;left:60%;opacity:0.5;width:7px;height:7px;"></div>
+                <div class="map-dot" style="top:60%;left:38%;opacity:0.5;width:7px;height:7px;"></div>
+                <span class="map-pin">📍</span>
+                <span class="map-label">Bismarck · Mandan · Burleigh County</span>
+              </div>
+              <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <span class="tag tag-active">Bismarck</span>
+                <span class="tag tag-active">Mandan</span>
+                <span class="tag tag-active">Burleigh Co.</span>
+                <span class="tag" style="background:rgba(255,255,255,0.04);color:var(--muted);cursor:pointer;">+ Add Market</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRICING CONFIGURATOR PREVIEW -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Pricing Configuration</div>
+            <div class="panel-sub">Your cost-per-square by material — what homeowners see when quoting your company</div>
+          </div>
+          <button class="btn-sm">Save Changes</button>
+        </div>
+        <div class="panel-body">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;">3-Tab Asphalt</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="color:var(--muted);font-size:0.9rem;">$</span>
+                <input type="number" value="420" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;width:80px;padding:0.4rem 0.5rem;outline:none;" />
+                <span style="color:var(--muted);font-size:0.78rem;">/ square</span>
+              </div>
+            </div>
+            <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:1rem;">
+              <div style="font-size:0.72rem;color:var(--amber);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;">Architectural ★</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="color:var(--muted);font-size:0.9rem;">$</span>
+                <input type="number" value="580" style="background:rgba(255,255,255,0.05);border:1px solid rgba(245,158,11,0.3);border-radius:6px;color:var(--amber);font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;width:80px;padding:0.4rem 0.5rem;outline:none;" />
+                <span style="color:var(--muted);font-size:0.78rem;">/ square</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;">Metal Roofing</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="color:var(--muted);font-size:0.9rem;">$</span>
+                <input type="number" value="1240" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;width:80px;padding:0.4rem 0.5rem;outline:none;" />
+                <span style="color:var(--muted);font-size:0.78rem;">/ square</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;">Complexity Upcharge</div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <input type="number" value="35" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;width:65px;padding:0.4rem 0.5rem;outline:none;" />
+                <span style="color:var(--muted);font-size:0.78rem;">% for complex roofs</span>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;">Prices shown to homeowners include your markup. ClickRoof network fee is deducted from your monthly subscription, not per-quote.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function acceptJob(btn) {
+      const item = btn.closest('.job-item');
+      const statusDot = item.querySelector('.job-status');
+      statusDot.className = 'job-status status-active';
+      const acts = item.querySelector('.job-actions');
+      acts.innerHTML = '<button class="action-btn action-view">View Details</button>';
+      const tag = item.querySelector('.tag');
+      if (tag) { tag.className = 'tag tag-active'; tag.textContent = 'Accepted'; }
+      item.style.opacity = '0.7';
+      // Show toast
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:2rem;right:2rem;background:#10B981;color:#fff;padding:0.75rem 1.5rem;border-radius:10px;font-weight:600;font-size:0.85rem;z-index:9999;animation:slideUp 0.3s ease;';
+      toast.textContent = '✓ Job accepted! Homeowner notified.';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+    function switchView(view) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      event.target.closest('.nav-item').classList.add('active');
+    }
+  </script>
+</body>
+</html>

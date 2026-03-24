@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ClickRoof — Your Roof. Your Price. Right Now.</title>
+  <meta name="description" content="Get instant roof quotes from top-rated local contractors. Compare prices, pick your materials, and lock in your project with a deposit. No salespeople. No waiting." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #112240;
+      --navy-light: #1E3A5F;
+      --amber: #F59E0B;
+      --amber-light: #FCD34D;
+      --amber-dark: #D97706;
+      --slate: #334155;
+      --slate-light: #64748B;
+      --white: #FAFAFA;
+      --off-white: #F1F5F9;
+      --text-muted: #94A3B8;
+      --green: #10B981;
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10, 22, 40, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+      transition: all 0.3s ease;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.5rem; color: var(--white); text-decoration: none;
+    }
+    .nav-logo .click { color: var(--amber); }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--amber);
+      color: var(--navy); font-weight: 700;
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      text-decoration: none; font-size: 0.9rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--amber-light); transform: translateY(-1px); }
+    .nav-mobile-menu { display: none; }
+
+    /* ── HERO ─────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 1.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245,158,11,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 60% at 80% 80%, rgba(30,58,95,0.5) 0%, transparent 70%),
+        linear-gradient(180deg, #0A1628 0%, #0D1E3B 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 820px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 50px;
+      padding: 0.4rem 1rem; margin-bottom: 2rem;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--amber-light); letter-spacing: 0.05em; text-transform: uppercase;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--amber);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.05;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero h1 .highlight {
+      color: var(--amber);
+      position: relative;
+    }
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 4px; background: var(--amber);
+      border-radius: 2px; opacity: 0.4;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-muted); max-width: 580px;
+      margin: 0 auto 2.5rem; line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    /* ── ADDRESS INPUT ─────────────────────── */
+    .address-form {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 1rem;
+      max-width: 580px; margin: 0 auto;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .address-input-wrap {
+      display: flex; width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(245,158,11,0.3);
+      border-radius: 14px; overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .address-input-wrap:focus-within {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 4px rgba(245,158,11,0.12);
+    }
+    .address-icon {
+      display: flex; align-items: center;
+      padding: 0 1rem; color: var(--amber);
+      font-size: 1.1rem;
+    }
+    .address-input {
+      flex: 1; background: none; border: none; outline: none;
+      color: var(--white); font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; padding: 1.1rem 0.5rem;
+    }
+    .address-input::placeholder { color: var(--text-muted); }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+      color: var(--navy); font-family: 'DM Sans', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      padding: 1.1rem 2.2rem; border-radius: 12px;
+      border: none; cursor: pointer; white-space: nowrap;
+      transition: all 0.2s; min-width: 180px;
+      box-shadow: 0 4px 20px rgba(245,158,11,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,158,11,0.4); }
+    .btn-primary:active { transform: translateY(0); }
+    .address-row {
+      display: flex; width: 100%; gap: 0.75rem;
+    }
+    .address-row .address-input-wrap { flex: 1; }
+
+    .trust-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.5rem; flex-wrap: wrap;
+      margin-top: 2rem; animation: fadeUp 0.7s 0.4s ease both;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+    .trust-item .icon { color: var(--green); font-size: 0.9rem; }
+
+    /* ── HOW IT WORKS ─────────────────────── */
+    .section { padding: 6rem 1.5rem; position: relative; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--amber); letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 1rem;
+      text-align: center;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.1;
+      text-align: center; margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--text-muted); text-align: center;
+      max-width: 500px; margin: 0 auto 3.5rem;
+      line-height: 1.7; font-size: 1rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .step-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245,158,11,0.3);
+    }
+    .step-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--amber), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .step-card:hover::before { opacity: 1; }
+    .step-num {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 3rem; color: rgba(245,158,11,0.12);
+      line-height: 1; margin-bottom: 1rem;
+    }
+    .step-icon {
+      width: 48px; height: 48px;
+      background: rgba(245,158,11,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem; font-size: 1.4rem;
+    }
+    .step-card h3 {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.15rem; margin-bottom: 0.75rem;
+    }
+    .step-card p {
+      color: var(--text-muted); font-size: 0.9rem; line-height: 1.65;
+    }
+    .step-time {
+      display: inline-block; margin-top: 1rem;
+      background: rgba(16,185,129,0.1);
+      color: var(--green); font-size: 0.75rem; font-weight: 600;
+      padding: 0.2rem 0.7rem; border-radius: 50px;
+    }
+
+    /* ── QUOTE WIDGET PREVIEW ─────────────── */
+    .quote-preview-section {
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+      padding: 6rem 1.5rem;
+    }
+    .quote-container {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .quote-left h2 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .quote-left p {
+      color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem;
+    }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.95rem; color: var(--text-muted);
+    }
+    .feature-list .check {
+      color: var(--amber); font-size: 0.9rem; margin-top: 2px; flex-shrink: 0;
+    }
+    .feature-list strong { color: var(--white); }
+
+    .quote-widget {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .widget-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .widget-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .widget-badge {
+      background: rgba(16,185,129,0.12);
+      color: var(--green); font-size: 0.7rem; font-weight: 700;
+      padding: 0.2rem 0.7rem; border-radius: 50px;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .property-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px; padding: 1rem;
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .property-map-thumb {
+      width: 60px; height: 60px; border-radius: 8px;
+      background: linear-gradient(135deg, #1a3a6b, #2563eb);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; overflow: hidden; position: relative;
+    }
+    .property-map-thumb .house-svg {
+      width: 40px; height: 40px; opacity: 0.8;
+    }
+    .property-info h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
+    .property-info p { font-size: 0.75rem; color: var(--text-muted); }
+    .property-stats {
+      display: flex; gap: 0.75rem; margin-top: 0.5rem;
+    }
+    .stat-pill {
+      background: rgba(245,158,11,0.1);
+      color: var(--amber-light); font-size: 0.7rem; font-weight: 600;
+      padding: 0.15rem 0.6rem; border-radius: 4px;
+    }
+    .contractor-quotes { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contractor-quote {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .contractor-quote:hover, .contractor-quote.selected {
+      border-color: var(--amber);
+      background: rgba(245,158,11,0.06);
+    }
+    .contractor-quote.selected .select-circle { background: var(--amber); border-color: var(--amber); }
+    .contractor-quote.selected .select-circle::after {
+      content: '✓'; position: absolute;
+      inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; color: var(--navy); font-weight: 700;
+    }
+    .contractor-info { display: flex; align-items: center; gap: 10px; }
+    .contractor-avatar {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; color: var(--navy); flex-shrink: 0;
+    }
+    .contractor-name { font-size: 0.85rem; font-weight: 600; }
+    .contractor-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 1px; }
+    .contractor-stars { color: var(--amber); font-size: 0.65rem; }
+    .contractor-price { text-align: right; }
+    .price-main { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; }
+    .price-range { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
+    .select-circle {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      position: relative; flex-shrink: 0;
+      margin-left: 8px;
+    }
+    .widget-cta {
+      margin-top: 1.25rem;
+      background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+      color: var(--navy); font-weight: 700; font-size: 0.9rem;
+      border: none; border-radius: 12px; padding: 0.9rem;
+      width: 100%; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.2s;
+    }
+    .widget-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .pay-icons { display: flex; gap: 6px; margin-top: 0.75rem; justify-content: center; }
+    .pay-icon {
+      background: rgba(255,255,255,0.07);
+      border-radius: 6px; padding: 4px 10px;
+      font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+    }
+
+    /* ── STATS BAR ─────────────────────────── */
+    .stats-section {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(245,158,11,0.1);
+      border-bottom: 1px solid rgba(245,158,11,0.1);
+      padding: 3rem 1.5rem;
+    }
+    .stats-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; text-align: center;
+    }
+    .stat-item h3 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 2.5rem; color: var(--amber);
+      margin-bottom: 0.5rem;
+    }
+    .stat-item p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+
+    /* ── ROOF TYPES ─────────────────────────── */
+    .roof-quiz-section { padding: 6rem 1.5rem; background: var(--navy); }
+    .roof-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; max-width: 900px; margin: 0 auto;
+    }
+    .roof-card {
+      background: rgba(255,255,255,0.03);
+      border: 2px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 1.5rem;
+      text-align: center; cursor: pointer;
+      transition: all 0.25s;
+    }
+    .roof-card:hover { border-color: var(--amber); background: rgba(245,158,11,0.06); transform: translateY(-3px); }
+    .roof-card.active { border-color: var(--amber); background: rgba(245,158,11,0.1); }
+    .roof-svg-wrap {
+      width: 80px; height: 55px; margin: 0 auto 1rem;
+    }
+    .roof-card h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .roof-card p { font-size: 0.75rem; color: var(--text-muted); }
+    .roof-card .complexity {
+      display: inline-block; margin-top: 0.6rem;
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.15rem 0.6rem; border-radius: 4px;
+    }
+    .complexity-low { background: rgba(16,185,129,0.1); color: var(--green); }
+    .complexity-mid { background: rgba(245,158,11,0.1); color: var(--amber); }
+    .complexity-high { background: rgba(239,68,68,0.1); color: #F87171; }
+
+    /* ── PAYMENT SECTION ─────────────────────── */
+    .payment-section {
+      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
+      padding: 6rem 1.5rem;
+      border-top: 1px solid rgba(245,158,11,0.1);
+    }
+    .payment-container {
+      max-width: 900px; margin: 0 auto; text-align: center;
+    }
+    .payment-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem; margin: 3rem 0;
+    }
+    .payment-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .payment-card:hover { border-color: rgba(245,158,11,0.4); transform: translateY(-3px); }
+    .payment-logo { font-size: 1.6rem; margin-bottom: 0.7rem; }
+    .payment-card h4 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .payment-card p { font-size: 0.75rem; color: var(--text-muted); }
+    .deposit-callout {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 16px; padding: 2rem;
+      margin-top: 2rem;
+    }
+    .deposit-callout h3 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.4rem; margin-bottom: 0.75rem;
+    }
+    .deposit-callout p { color: var(--text-muted); line-height: 1.65; font-size: 0.95rem; }
+
+    /* ── CONTRACTOR CTA ─────────────────────── */
+    .contractor-section {
+      padding: 6rem 1.5rem;
+      background: var(--navy);
+    }
+    .contractor-container {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .contractor-left .label {
+      font-size: 0.75rem; font-weight: 700; color: var(--amber);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .contractor-left h2 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .contractor-left p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.75rem; }
+    .pricing-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .pricing-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .pricing-card:hover { border-color: rgba(245,158,11,0.3); }
+    .pricing-card.featured {
+      border-color: var(--amber);
+      background: rgba(245,158,11,0.06);
+    }
+    .plan-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+    .plan-desc { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; }
+    .plan-price { text-align: right; }
+    .plan-price .amount { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; }
+    .plan-price .period { font-size: 0.75rem; color: var(--text-muted); }
+    .featured-tag {
+      background: var(--amber); color: var(--navy);
+      font-size: 0.65rem; font-weight: 800;
+      padding: 0.15rem 0.6rem; border-radius: 4px;
+      margin-left: 8px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid var(--amber); color: var(--amber);
+      padding: 0.9rem 2rem; border-radius: 12px;
+      font-family: 'DM Sans', sans-serif; font-weight: 700;
+      font-size: 0.95rem; text-decoration: none;
+      cursor: pointer; background: none;
+      transition: all 0.2s; margin-top: 1.5rem;
+    }
+    .btn-outline:hover { background: rgba(245,158,11,0.08); }
+
+    /* ── TESTIMONIALS ─────────────────────── */
+    .testimonials-section { padding: 6rem 1.5rem; background: var(--navy-mid); }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 1.75rem;
+      transition: transform 0.2s;
+    }
+    .testimonial-card:hover { transform: translateY(-3px); }
+    .testi-stars { color: var(--amber); font-size: 0.9rem; margin-bottom: 1rem; }
+    .testi-text { color: var(--text-muted); line-height: 1.7; font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; color: var(--navy);
+    }
+    .author-name { font-weight: 600; font-size: 0.85rem; }
+    .author-location { font-size: 0.75rem; color: var(--text-muted); margin-top: 1px; }
+
+    /* ── FINAL CTA ─────────────────────────── */
+    .final-cta-section {
+      padding: 8rem 1.5rem;
+      background: linear-gradient(135deg, #0A1628 0%, #0D1E3B 50%, #0A1628 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .final-cta-section::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta-content { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+    .final-cta-content h2 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .final-cta-content p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem; }
+
+    /* ── FOOTER ─────────────────────────────── */
+    footer {
+      background: #040D1A;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.25rem; color: var(--white);
+    }
+    .footer-logo span { color: var(--amber); }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { color: var(--text-muted); font-size: 0.8rem; }
+
+    /* ── QUOTE WIZARD MODAL ─────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(4, 13, 26, 0.92);
+      backdrop-filter: blur(20px);
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+    .modal {
+      background: var(--navy-mid);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 24px;
+      width: 100%; max-width: 560px;
+      max-height: 90vh; overflow-y: auto;
+      padding: 2rem;
+      animation: slideUp 0.35s ease;
+    }
+    @keyframes slideUp { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.06); border: none;
+      color: var(--text-muted); width: 36px; height: 36px;
+      border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-header { margin-bottom: 1.75rem; }
+    .modal-step {
+      font-size: 0.7rem; font-weight: 700; color: var(--amber);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .modal-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; }
+    .modal-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.4rem; }
+    .progress-bar {
+      height: 3px; background: rgba(255,255,255,0.06);
+      border-radius: 2px; margin-bottom: 2rem; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: var(--amber);
+      border-radius: 2px; transition: width 0.4s ease;
+    }
+    .step-content { display: none; }
+    .step-content.active { display: block; animation: fadeUp 0.3s ease; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .form-input {
+      width: 100%; background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px; color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 1rem;
+      padding: 0.85rem 1rem; outline: none; transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--amber); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .modal-nav { display: flex; gap: 1rem; margin-top: 2rem; }
+    .btn-next {
+      flex: 1; background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+      color: var(--navy); font-family: 'DM Sans', sans-serif; font-weight: 700;
+      padding: 1rem; border: none; border-radius: 12px; cursor: pointer;
+      font-size: 0.95rem; transition: all 0.2s;
+    }
+    .btn-back {
+      background: rgba(255,255,255,0.05); color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.1); font-family: 'DM Sans', sans-serif;
+      font-weight: 600; padding: 1rem 1.5rem; border-radius: 12px;
+      cursor: pointer; font-size: 0.95rem; transition: all 0.2s;
+    }
+    .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .option-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 1rem;
+      text-align: center; cursor: pointer; transition: all 0.2s;
+      color: var(--white);
+    }
+    .option-btn:hover { border-color: rgba(245,158,11,0.4); }
+    .option-btn.selected { border-color: var(--amber); background: rgba(245,158,11,0.1); }
+    .option-btn .opt-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .option-btn .opt-label { font-size: 0.82rem; font-weight: 600; }
+    .option-btn .opt-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+    .quote-result {
+      background: rgba(0,0,0,0.3);
+      border-radius: 16px; padding: 1.5rem;
+      text-align: center; margin-bottom: 1.25rem;
+    }
+    .quote-from { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .quote-price { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--amber); }
+    .quote-range { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    .quote-details { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1.25rem 0; }
+    .quote-detail-item { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 0.75rem; text-align: center; }
+    .quote-detail-item .qd-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .quote-detail-item .qd-value { font-size: 0.9rem; font-weight: 700; margin-top: 4px; }
+    .deposit-box {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 14px; padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .deposit-box h4 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.5rem; }
+    .deposit-box p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0.9rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-mobile-menu { display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border: none; color: var(--white); width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; }
+      .quote-container, .contractor-container { grid-template-columns: 1fr; gap: 2.5rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .roof-cards { grid-template-columns: repeat(2, 1fr); }
+      .address-row { flex-direction: column; }
+      .form-row { grid-template-columns: 1fr; }
+      .quote-details { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .roof-cards { grid-template-columns: 1fr 1fr; }
+      .option-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M2 10L10 3L18 10V18H13V13H7V18H2V10Z" fill="#0A1628"/>
+        </svg>
+      </div>
+      <span><span class="click">Click</span>Roof</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#quotes">Get a Quote</a></li>
+      <li><a href="#contractors">For Contractors</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div style="display:flex;gap:0.75rem;align-items:center;">
+      <a href="contractor-portal.html" class="nav-links" style="color:var(--text-muted);font-size:0.85rem;font-weight:500;">Contractor Login</a>
+      <a href="#" class="nav-cta" onclick="openModal()">Get My Quote</a>
+      <button class="nav-mobile-menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Now Available Nationwide
+      </div>
+      <h1>
+        Your Roof.<br>
+        Your Price.<br>
+        <span class="highlight">Right Now.</span>
+      </h1>
+      <p class="hero-sub">
+        Get instant roof quotes from pre-vetted local contractors. Compare prices, choose your materials, and lock in your project with a deposit — all in under 5 minutes. No salespeople. No waiting.
+      </p>
+      <div class="address-form">
+        <div class="address-row">
+          <div class="address-input-wrap">
+            <span class="address-icon">📍</span>
+            <input type="text" class="address-input" placeholder="Enter your home address..." id="heroAddress" />
+          </div>
+          <button class="btn-primary" onclick="openModal()">
+            Get My Quote
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <span class="icon">✓</span>
+          Instant pricing
+        </div>
+        <div class="trust-item">
+          <span class="icon">✓</span>
+          Pre-vetted contractors
+        </div>
+        <div class="trust-item">
+          <span class="icon">✓</span>
+          No salespeople
+        </div>
+        <div class="trust-item">
+          <span class="icon">✓</span>
+          Price-lock guarantee
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3>60s</h3>
+        <p>Average time to get a fully itemized roof quote</p>
+      </div>
+      <div class="stat-item">
+        <h3>$31B</h3>
+        <p>U.S. roofing market in 2024 — now with zero friction</p>
+      </div>
+      <div class="stat-item">
+        <h3>4.9★</h3>
+        <p>Average contractor rating in the ClickRoof network</p>
+      </div>
+      <div class="stat-item">
+        <h3>$1,000</h3>
+        <p>Deposit locks your price — applied to your final invoice</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="section-label">The Process</div>
+    <h2 class="section-title">From Address to Locked Price in Minutes</h2>
+    <p class="section-sub">We pulled the complexity out of roofing. What used to take weeks of back-and-forth now takes 60 seconds on your phone.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">📍</div>
+        <h3>Enter Your Address</h3>
+        <p>We instantly pull your home's aerial measurements, square footage, and roof structure from public data. No tape measure required.</p>
+        <span class="step-time">⚡ 5 seconds</span>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">🏠</div>
+        <h3>Describe Your Roof</h3>
+        <p>Select from 6 real roof photos to match your complexity. Tell us your pitch and stories. Our AI prices it precisely.</p>
+        <span class="step-time">⚡ 30 seconds</span>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">🏷️</div>
+        <h3>Choose Your Materials</h3>
+        <p>Pick from 3-tab asphalt to architectural shingles, metal, or premium options. See the real price impact of each choice.</p>
+        <span class="step-time">⚡ 15 seconds</span>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-icon">⚖️</div>
+        <h3>Compare Contractors</h3>
+        <p>See side-by-side quotes from 2–4 pre-vetted local contractors in your area — with ratings, years in business, and all-in pricing.</p>
+        <span class="step-time">⚡ Instant</span>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-icon">✅</div>
+        <h3>Lock In &amp; Pay</h3>
+        <p>Select your contractor and pay a $500–$1,000 deposit via Apple Pay, Google Pay, Venmo, or card. Your price is locked for 30 days.</p>
+        <span class="step-time">⚡ 10 seconds</span>
+      </div>
+      <div class="step-card">
+        <div class="step-num">06</div>
+        <div class="step-icon">🔨</div>
+        <h3>Work Gets Done</h3>
+        <p>Your contractor confirms within 24 hours, schedules your project, and gets to work. Track progress right in your dashboard.</p>
+        <span class="step-time">⚡ On schedule</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE WIDGET PREVIEW -->
+  <section class="quote-preview-section" id="quotes">
+    <div class="quote-container">
+      <div class="quote-left">
+        <div class="section-label" style="text-align:left;">Live Demo</div>
+        <h2>See Real Quotes <br/>From Real Contractors <br/>In Your Area</h2>
+        <p>Every quote is generated from actual aerial measurements, local material costs, and contractor pricing — not estimates pulled from thin air. Compare multiple contractors the same way you compare flights.</p>
+        <ul class="feature-list">
+          <li><span class="check">▶</span><span><strong>Aerial imagery</strong> of your exact property, not a stock photo</span></li>
+          <li><span class="check">▶</span><span><strong>Square footage pulled automatically</strong> from county assessor records</span></li>
+          <li><span class="check">▶</span><span><strong>2–4 local contractor quotes</strong> with license numbers and insurance verified</span></li>
+          <li><span class="check">▶</span><span><strong>30-day price lock</strong> the moment you pay your deposit</span></li>
+          <li><span class="check">▶</span><span><strong>Storm history overlay</strong> — see if your roof has hail or wind event history</span></li>
+        </ul>
+      </div>
+      <div class="quote-widget">
+        <div class="widget-header">
+          <span class="widget-title">Your Instant Quote</span>
+          <span class="widget-badge">● Live Pricing</span>
+        </div>
+        <div class="property-card">
+          <div class="property-map-thumb">
+            <svg class="house-svg" viewBox="0 0 40 40" fill="none">
+              <rect x="8" y="20" width="24" height="16" fill="rgba(255,255,255,0.2)" rx="2"/>
+              <path d="M4 20L20 6L36 20" fill="none" stroke="rgba(245,158,11,0.8)" stroke-width="2.5"/>
+              <rect x="15" y="28" width="10" height="8" fill="rgba(245,158,11,0.4)" rx="1"/>
+            </svg>
+          </div>
+          <div class="property-info">
+            <h4>1842 Riverview Dr, Bismarck ND</h4>
+            <p>Single-family residential · Built 2003</p>
+            <div class="property-stats">
+              <span class="stat-pill">2,240 sqft</span>
+              <span class="stat-pill">Hip roof</span>
+              <span class="stat-pill">2 stories</span>
+            </div>
+          </div>
+        </div>
+        <div class="contractor-quotes">
+          <div class="contractor-quote selected" onclick="selectQuote(this)">
+            <div class="contractor-info">
+              <div class="contractor-avatar" style="background:var(--amber);">CE</div>
+              <div>
+                <div class="contractor-name">Capital Exteriors</div>
+                <div class="contractor-meta"><span class="contractor-stars">★★★★★</span> · 5.0 · Bismarck, ND · 19 yrs</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;">
+              <div class="contractor-price">
+                <div class="price-main">$14,850</div>
+                <div class="price-range">$13,400 – $16,200</div>
+              </div>
+              <div class="select-circle"></div>
+            </div>
+          </div>
+          <div class="contractor-quote" onclick="selectQuote(this)">
+            <div class="contractor-info">
+              <div class="contractor-avatar" style="background:#38BDF8;">NR</div>
+              <div>
+                <div class="contractor-name">Northern Roofing Co.</div>
+                <div class="contractor-meta"><span class="contractor-stars">★★★★☆</span> · 4.7 · Bismarck, ND · 11 yrs</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;">
+              <div class="contractor-price">
+                <div class="price-main">$13,200</div>
+                <div class="price-range">$12,100 – $14,600</div>
+              </div>
+              <div class="select-circle"></div>
+            </div>
+          </div>
+          <div class="contractor-quote" onclick="selectQuote(this)">
+            <div class="contractor-info">
+              <div class="contractor-avatar" style="background:#A78BFA;">PR</div>
+              <div>
+                <div class="contractor-name">ProRoof Dakota</div>
+                <div class="contractor-meta"><span class="contractor-stars">★★★★★</span> · 4.9 · Mandan, ND · 7 yrs</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;">
+              <div class="contractor-price">
+                <div class="price-main">$15,400</div>
+                <div class="price-range">$14,000 – $17,000</div>
+              </div>
+              <div class="select-circle"></div>
+            </div>
+          </div>
+        </div>
+        <button class="widget-cta" onclick="openModal()">
+          🔒 Lock In Capital Exteriors — Pay $1,000 Deposit
+        </button>
+        <div class="pay-icons">
+          <span class="pay-icon">🍎 Apple Pay</span>
+          <span class="pay-icon">G Pay</span>
+          <span class="pay-icon">Venmo</span>
+          <span class="pay-icon">💳 Card</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOF TYPE QUIZ -->
+  <section class="roof-quiz-section">
+    <div class="section-label">Roof Complexity Quiz</div>
+    <h2 class="section-title">Which Roof Looks Like Yours?</h2>
+    <p class="section-sub">No jargon. No measuring. Just pick the roof that looks most like yours — our system handles the math.</p>
+    <div class="roof-cards">
+      <div class="roof-card" onclick="selectRoof(this)">
+        <div class="roof-svg-wrap">
+          <svg viewBox="0 0 80 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="30" width="60" height="22" fill="rgba(255,255,255,0.08)" rx="2"/>
+            <path d="M5 30L40 8L75 30Z" fill="rgba(245,158,11,0.3)" stroke="rgba(245,158,11,0.6)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h4>Simple Gable</h4>
+        <p>Two slopes meeting at a ridge. Clean lines, easy access.</p>
+        <span class="complexity complexity-low">Low Complexity</span>
+      </div>
+      <div class="roof-card" onclick="selectRoof(this)">
+        <div class="roof-svg-wrap">
+          <svg viewBox="0 0 80 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="32" width="60" height="20" fill="rgba(255,255,255,0.08)" rx="2"/>
+            <path d="M5 32L20 14H60L75 32Z" fill="rgba(245,158,11,0.3)" stroke="rgba(245,158,11,0.6)" stroke-width="1.5"/>
+            <path d="M20 14L40 14L40 14" stroke="rgba(245,158,11,0.4)" stroke-width="1"/>
+          </svg>
+        </div>
+        <h4>Hip Roof</h4>
+        <p>All four sides slope down to the eaves.</p>
+        <span class="complexity complexity-mid">Moderate</span>
+      </div>
+      <div class="roof-card" onclick="selectRoof(this)">
+        <div class="roof-svg-wrap">
+          <svg viewBox="0 0 80 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="32" width="60" height="20" fill="rgba(255,255,255,0.08)" rx="2"/>
+            <path d="M5 32L40 6L75 32Z" fill="rgba(245,158,11,0.3)" stroke="rgba(245,158,11,0.6)" stroke-width="1.5"/>
+            <rect x="28" y="16" width="24" height="16" fill="rgba(100,180,255,0.2)" stroke="rgba(100,180,255,0.5)" stroke-width="1.5"/>
+            <path d="M28 16L40 8L52 16" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.4)" stroke-width="1"/>
+          </svg>
+        </div>
+        <h4>Gable + Dormer</h4>
+        <p>Main gable with one or more dormers protruding.</p>
+        <span class="complexity complexity-mid">Moderate</span>
+      </div>
+      <div class="roof-card" onclick="selectRoof(this)">
+        <div class="roof-svg-wrap">
+          <svg viewBox="0 0 80 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="34" width="70" height="18" fill="rgba(255,255,255,0.08)" rx="2"/>
+            <path d="M5 34L20 20H60L75 34Z" fill="rgba(245,158,11,0.2)" stroke="rgba(245,158,11,0.5)" stroke-width="1.5"/>
+            <path d="M20 20L40 8L60 20" fill="rgba(245,158,11,0.3)" stroke="rgba(245,158,11,0.6)" stroke-width="1.5"/>
+            <line x1="20" y1="20" x2="60" y2="20" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
+          </svg>
+        </div>
+        <h4>Hip + Ridge</h4>
+        <p>Multi-level hip roof with intersecting ridgelines.</p>
+        <span class="complexity complexity-high">High</span>
+      </div>
+      <div class="roof-card" onclick="selectRoof(this)">
+        <div class="roof-svg-wrap">
+          <svg viewBox="0 0 80 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="35" width="35" height="17" fill="rgba(255,255,255,0.08)" rx="2"/>
+            <rect x="40" y="28" width="35" height="24" fill="rgba(255,255,255,0.05)" rx="2"/>
+            <path d="M5 35L22 15H40L40 35Z" fill="rgba(245,158,11,0.25)" stroke="rgba(245,158,11,0.5)" stroke-width="1.5"/>
+            <path d="M40 28L57 10H75L75 28Z" fill="rgba(245,158,11,0.35)" stroke="rgba(245,158,11,0.6)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h4>Multi-Section</h4>
+        <p>Different roof heights — addition, garage, porch attachments.</p>
+        <span class="complexity complexity-high">High</span>
+      </div>
+      <div class="roof-card" onclick="selectRoof(this)">
+        <div class="roof-svg-wrap">
+          <svg viewBox="0 0 80 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="30" width="70" height="22" fill="rgba(255,255,255,0.08)" rx="2"/>
+            <path d="M5 30L18 10L30 22L42 8L55 22L67 12L75 30Z" fill="rgba(245,158,11,0.25)" stroke="rgba(245,158,11,0.5)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h4>Complex / Custom</h4>
+        <p>Multiple valleys, hips, dormers, turrets or unusual shape.</p>
+        <span class="complexity complexity-high">Very High</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT OPTIONS -->
+  <section class="payment-section">
+    <div class="payment-container">
+      <div class="section-label">Payment Options</div>
+      <h2 class="section-title">Pay the Way You Want</h2>
+      <p class="section-sub">One tap to lock in your price. We support every major payment method — no friction, no forms, no calls.</p>
+      <div class="payment-grid">
+        <div class="payment-card">
+          <div class="payment-logo">🍎</div>
+          <h4>Apple Pay</h4>
+          <p>One tap on any iOS device</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-logo" style="font-size:1.2rem;font-weight:700;color:#4285F4;font-family:sans-serif;">G</div>
+          <h4>Google Pay</h4>
+          <p>Instant on Android &amp; Chrome</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-logo">💸</div>
+          <h4>Venmo</h4>
+          <p>Pay with your Venmo balance</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-logo">💳</div>
+          <h4>Credit / Debit</h4>
+          <p>Visa, Mastercard, Amex, Discover</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-logo">🏦</div>
+          <h4>ACH / Bank</h4>
+          <p>Direct bank transfer — no fees</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-logo">📋</div>
+          <h4>Financing</h4>
+          <p>Pre-qualify in 60 seconds, no credit pull</p>
+        </div>
+      </div>
+      <div class="deposit-callout">
+        <h3>🔒 Your $1,000 Deposit = Your Price Lock</h3>
+        <p>Your deposit is fully applied toward your final invoice. It's not a fee — it's the first dollar of your new roof. If your contractor fails to honor the quote, your deposit is 100% refunded within 24 hours. ClickRoof guarantees it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR CONTRACTORS -->
+  <section class="contractor-section" id="contractors">
+    <div class="contractor-container">
+      <div class="contractor-left">
+        <div class="label">For Contractors</div>
+        <h2>Get Job-Ready Leads. No Cold Calls. No Tire-Kickers.</h2>
+        <p>Every lead that comes through ClickRoof has already seen your price, compared you to competitors, and paid a deposit. You're not chasing leads — you're confirming projects.</p>
+        <ul class="feature-list">
+          <li><span class="check">▶</span><span><strong>Deposit already collected</strong> before you ever touch the job</span></li>
+          <li><span class="check">▶</span><span><strong>Aerial measurements pre-loaded</strong> for every address</span></li>
+          <li><span class="check">▶</span><span><strong>Your pricing, your products</strong> — you control your quote engine</span></li>
+          <li><span class="check">▶</span><span><strong>E-sign proposals</strong> built right into your portal</span></li>
+          <li><span class="check">▶</span><span><strong>Storm damage alerts</strong> for your market — first mover advantage</span></li>
+        </ul>
+        <a href="contractor-portal.html" class="btn-outline">View Contractor Portal →</a>
+      </div>
+      <div>
+        <div class="pricing-cards">
+          <div class="pricing-card">
+            <div>
+              <div class="plan-name">Starter</div>
+              <div class="plan-desc">1 market · 10 quotes/mo</div>
+            </div>
+            <div class="plan-price">
+              <div class="amount">$199</div>
+              <div class="period">/month</div>
+            </div>
+          </div>
+          <div class="pricing-card featured">
+            <div>
+              <div class="plan-name">Pro <span class="featured-tag">Most Popular</span></div>
+              <div class="plan-desc">3 markets · Unlimited quotes</div>
+            </div>
+            <div class="plan-price">
+              <div class="amount" style="color:var(--amber);">$349</div>
+              <div class="period">/month</div>
+            </div>
+          </div>
+          <div class="pricing-card">
+            <div>
+              <div class="plan-name">Elite</div>
+              <div class="plan-desc">10 markets · Priority placement</div>
+            </div>
+            <div class="plan-price">
+              <div class="amount">$699</div>
+              <div class="period">/month</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:14px;padding:1.25rem;">
+          <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">
+            <strong style="color:var(--amber);">Founding Member Offer:</strong> The first contractor in any new market pays $0 setup fee and gets 3 months free. Be the first in your city.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="section-label">What They're Saying</div>
+    <h2 class="section-title">Real Homeowners. Real Projects.</h2>
+    <p class="section-sub" style="margin-bottom:3rem;">From address entry to deposit paid in under 3 minutes. Here's what our early users experienced.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I've been putting off getting my roof done for two years because I dreaded the sales calls. I found ClickRoof at 10pm, got three quotes, picked Capital Exteriors, and paid my deposit before midnight. They started within a week."</p>
+        <div class="testi-author">
+          <div class="author-avatar" style="background:var(--amber);">SR</div>
+          <div>
+            <div class="author-name">Sara R.</div>
+            <div class="author-location">Bismarck, ND · Architectural Shingle Replacement</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The aerial view of my house was already loaded when I got to the quote page. It knew my roof was 2,180 sq ft and that I had a complex hip design. The quote was dead on — exactly what I ended up paying."</p>
+        <div class="testi-author">
+          <div class="author-avatar" style="background:#38BDF8;">MK</div>
+          <div>
+            <div class="author-name">Mike K.</div>
+            <div class="author-location">Fargo, ND · Metal Roof Installation</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I had hail damage. Filed my insurance claim, came to ClickRoof, selected a contractor with storm claims experience. They handled the insurance adjuster and everything. Best experience I've ever had with home repair."</p>
+        <div class="testi-author">
+          <div class="author-avatar" style="background:#A78BFA;">JL</div>
+          <div>
+            <div class="author-name">Jennifer L.</div>
+            <div class="author-location">Minot, ND · Insurance Claim Replacement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta-section">
+    <div class="final-cta-content">
+      <h2>Your Roof Won't Fix Itself.<br/><span style="color:var(--amber);">But We Made Replacing It Simple.</span></h2>
+      <p>Join thousands of homeowners who skipped the sales calls and got straight to the work. Enter your address and see your instant quote in 60 seconds.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="openModal()" style="font-size:1.05rem;padding:1.15rem 2.5rem;">
+          Get My Free Quote →
+        </button>
+        <a href="contractor-portal.html" class="btn-outline" style="margin-top:0;">
+          I'm a Contractor
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo"><span>Click</span>Roof</div>
+        <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;">The Priceline of Roofing™</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">How It Works</a>
+        <a href="#">Find Contractors</a>
+        <a href="contractor-portal.html">Contractor Login</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 ClickRoof Inc. All rights reserved.<br/>Inspired by Capital Exteriors, Bismarck ND.</p>
+    </div>
+  </footer>
+
+  <!-- QUOTE WIZARD MODAL -->
+  <div class="modal-overlay" id="quoteModal">
+    <div class="modal" style="position:relative;">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:20%"></div>
+      </div>
+      <div class="modal-header">
+        <div class="modal-step" id="stepLabel">Step 1 of 5</div>
+        <div class="modal-title" id="stepTitle">Enter Your Address</div>
+        <div class="modal-subtitle" id="stepSubtitle">We'll pull your property data automatically</div>
+      </div>
+
+      <!-- Step 1: Address -->
+      <div class="step-content active" id="step1">
+        <div class="form-group">
+          <label class="form-label">Street Address</label>
+          <input type="text" class="form-input" placeholder="123 Main St" id="s1address" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">City</label>
+            <input type="text" class="form-input" placeholder="Bismarck" id="s1city" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">State</label>
+            <input type="text" class="form-input" placeholder="ND" id="s1state" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ZIP Code</label>
+          <input type="text" class="form-input" placeholder="58501" id="s1zip" />
+        </div>
+        <div class="modal-nav">
+          <button class="btn-next" onclick="nextStep(2)">Pull My Property Data →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Roof Type -->
+      <div class="step-content" id="step2">
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.25rem;padding:0.75rem;background:rgba(16,185,129,0.08);border-radius:8px;">
+          ✓ Property found: <strong style="color:var(--white);">2,180 sq ft · Built 2001 · Single family</strong>
+        </p>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Which roof looks most like yours?</p>
+        <div class="option-grid" style="grid-template-columns:1fr 1fr 1fr;">
+          <div class="option-btn" onclick="selectOption(this,'roofType','simple')">
+            <div class="opt-icon">🏠</div>
+            <div class="opt-label">Simple Gable</div>
+            <div class="opt-sub">2 slopes</div>
+          </div>
+          <div class="option-btn" onclick="selectOption(this,'roofType','hip')">
+            <div class="opt-icon">🏡</div>
+            <div class="opt-label">Hip Roof</div>
+            <div class="opt-sub">4 slopes</div>
+          </div>
+          <div class="option-btn" onclick="selectOption(this,'roofType','complex')">
+            <div class="opt-icon">🏘️</div>
+            <div class="opt-label">Complex</div>
+            <div class="opt-sub">Multiple sections</div>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:1.25rem;">
+          <label class="form-label">How many stories is your home?</label>
+          <div class="option-grid" style="grid-template-columns:1fr 1fr 1fr;">
+            <div class="option-btn" onclick="selectOption(this,'stories','1')"><div class="opt-label">1 Story</div></div>
+            <div class="option-btn" onclick="selectOption(this,'stories','2')"><div class="opt-label">2 Stories</div></div>
+            <div class="option-btn" onclick="selectOption(this,'stories','3+')"><div class="opt-label">3+ Stories</div></div>
+          </div>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-back" onclick="nextStep(1)">← Back</button>
+          <button class="btn-next" onclick="nextStep(3)">Choose Materials →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Materials -->
+      <div class="step-content" id="step3">
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Select your preferred roofing material:</p>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div class="option-btn" onclick="selectOption(this,'material','3tab')" style="display:flex;align-items:center;justify-content:space-between;text-align:left;padding:1rem 1.25rem;">
+            <div>
+              <div class="opt-label">3-Tab Asphalt Shingle</div>
+              <div class="opt-sub">15–20 yr lifespan · Most affordable option</div>
+            </div>
+            <div style="color:var(--amber);font-weight:700;">~$8–11/sqft</div>
+          </div>
+          <div class="option-btn" onclick="selectOption(this,'material','arch')" style="display:flex;align-items:center;justify-content:space-between;text-align:left;padding:1rem 1.25rem;">
+            <div>
+              <div class="opt-label">Architectural Shingle</div>
+              <div class="opt-sub">25–30 yr lifespan · Best value · Most popular</div>
+            </div>
+            <div style="color:var(--amber);font-weight:700;">~$11–15/sqft</div>
+          </div>
+          <div class="option-btn" onclick="selectOption(this,'material','metal')" style="display:flex;align-items:center;justify-content:space-between;text-align:left;padding:1rem 1.25rem;">
+            <div>
+              <div class="opt-label">Metal Roofing</div>
+              <div class="opt-sub">50–70 yr lifespan · Energy efficient · Durable</div>
+            </div>
+            <div style="color:var(--amber);font-weight:700;">~$18–26/sqft</div>
+          </div>
+          <div class="option-btn" onclick="selectOption(this,'material','premium')" style="display:flex;align-items:center;justify-content:space-between;text-align:left;padding:1rem 1.25rem;">
+            <div>
+              <div class="opt-label">Premium / Designer</div>
+              <div class="opt-sub">Cedar, slate, tile · Maximum curb appeal</div>
+            </div>
+            <div style="color:var(--amber);font-weight:700;">~$22–40/sqft</div>
+          </div>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-back" onclick="nextStep(2)">← Back</button>
+          <button class="btn-next" onclick="nextStep(4)">See My Quotes →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Quotes -->
+      <div class="step-content" id="step4">
+        <div class="quote-result">
+          <div class="quote-from">Your Estimated Range</div>
+          <div class="quote-price" id="quotePrice">$14,200</div>
+          <div class="quote-range">Typically $12,800 – $16,100 for your home</div>
+        </div>
+        <div class="quote-details">
+          <div class="quote-detail-item">
+            <div class="qd-label">Roof Area</div>
+            <div class="qd-value">2,180 sqft</div>
+          </div>
+          <div class="quote-detail-item">
+            <div class="qd-label">Material</div>
+            <div class="qd-value">Arch. Shingle</div>
+          </div>
+          <div class="quote-detail-item">
+            <div class="qd-label">Complexity</div>
+            <div class="qd-value">Moderate</div>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-muted);text-align:center;margin-bottom:1.25rem;">3 contractors in your area matched. Lock in your price with a deposit.</p>
+        <div class="modal-nav">
+          <button class="btn-back" onclick="nextStep(3)">← Back</button>
+          <button class="btn-next" onclick="nextStep(5)">Lock In My Price →</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Deposit -->
+      <div class="step-content" id="step5">
+        <div class="deposit-box">
+          <h4>🔒 Lock In Capital Exteriors at $14,200</h4>
+          <p>Your $1,000 deposit is applied to your final invoice — it's not a fee. Price is locked for 30 days. 100% refundable if your contractor cancels.</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Email</label>
+          <input type="email" class="form-input" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Phone</label>
+          <input type="tel" class="form-input" placeholder="(701) 555-0000" />
+        </div>
+        <p style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-bottom:1rem;">Payment processed securely via Stripe. Your card is never stored.</p>
+        <div class="pay-icons" style="margin-bottom:1rem;">
+          <span class="pay-icon">🍎 Apple Pay</span>
+          <span class="pay-icon">G Pay</span>
+          <span class="pay-icon">Venmo</span>
+          <span class="pay-icon">💳 Card</span>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-back" onclick="nextStep(4)">← Back</button>
+          <button class="btn-next" style="background:var(--green);" onclick="submitDeposit()">Pay $1,000 Deposit →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 5;
+    const stepData = {
+      1: { label: 'Step 1 of 5', title: 'Enter Your Address', sub: "We'll pull your property data automatically" },
+      2: { label: 'Step 2 of 5', title: 'About Your Roof', sub: 'Choose what matches your home' },
+      3: { label: 'Step 3 of 5', title: 'Choose Materials', sub: 'Select what you want on your roof' },
+      4: { label: 'Step 4 of 5', title: 'Your Instant Quote', sub: 'Based on your home and material selection' },
+      5: { label: 'Step 5 of 5', title: 'Lock In Your Price', sub: 'Deposit confirms your project' },
+    };
+
+    function openModal() {
+      document.getElementById('quoteModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      const addr = document.getElementById('heroAddress');
+      if (addr && addr.value) document.getElementById('s1address').value = addr.value;
+    }
+    function closeModal() {
+      document.getElementById('quoteModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function nextStep(n) {
+      document.getElementById('step' + currentStep).classList.remove('active');
+      currentStep = n;
+      document.getElementById('step' + currentStep).classList.add('active');
+      const d = stepData[currentStep];
+      document.getElementById('stepLabel').textContent = d.label;
+      document.getElementById('stepTitle').textContent = d.title;
+      document.getElementById('stepSubtitle').textContent = d.sub;
+      document.getElementById('progressFill').style.width = ((currentStep / totalSteps) * 100) + '%';
+      document.querySelector('.modal').scrollTop = 0;
+    }
+    function selectOption(el, group, value) {
+      document.querySelectorAll('[onclick*="' + group + '"]').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function selectQuote(el) {
+      document.querySelectorAll('.contractor-quote').forEach(q => q.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function selectRoof(el) {
+      document.querySelectorAll('.roof-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function submitDeposit() {
+      const btn = document.querySelector('#step5 .btn-next');
+      btn.textContent = '⏳ Processing...';
+      btn.disabled = true;
+      setTimeout(() => {
+        document.querySelector('.modal').innerHTML = `
+          <div style="text-align:center;padding:2rem 1rem;">
+            <div style="font-size:4rem;margin-bottom:1.5rem;">🎉</div>
+            <h2 style="font-family:Syne,sans-serif;font-weight:800;font-size:1.75rem;margin-bottom:1rem;">Deposit Confirmed!</h2>
+            <p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Your $1,000 deposit has been received. Capital Exteriors will confirm your project within 24 hours. You'll receive a text and email with next steps.</p>
+            <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:12px;padding:1rem;margin-bottom:1.5rem;">
+              <p style="color:var(--green);font-weight:600;font-size:0.9rem;">✓ Price locked: $14,200 for 30 days</p>
+              <p style="color:var(--green);font-weight:600;font-size:0.9rem;margin-top:4px;">✓ Deposit applied to your invoice</p>
+              <p style="color:var(--green);font-weight:600;font-size:0.9rem;margin-top:4px;">✓ Confirmation sent to your email</p>
+            </div>
+            <button onclick="closeModal()" style="background:var(--amber);color:var(--navy);font-weight:700;border:none;padding:0.9rem 2rem;border-radius:12px;cursor:pointer;font-size:0.95rem;">Close</button>
+          </div>`;
+      }, 1800);
+    }
+    document.getElementById('quoteModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>
