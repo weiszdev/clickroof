@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>ClickRoof — Compare Roofing Contractors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0f1c;
+  --card: #111827;
+  --card-border: #1e293b;
+  --accent: #f59e0b;
+  --accent-light: #fbbf24;
+  --green: #10b981;
+  --green-bg: rgba(16, 185, 129, 0.12);
+  --gray: #6b7280;
+  --gray-light: #9ca3af;
+  --text: #f1f5f9;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --danger: #ef4444;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  padding-top: var(--safe-top);
+  padding-bottom: calc(80px + var(--safe-bottom));
+}
+
+/* ===== STICKY HEADER ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 15, 28, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 16px;
+  padding-top: calc(12px + var(--safe-top));
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.back-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border: none;
+  color: var(--text);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.logo span { color: var(--accent); }
+
+.address-bar {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.address-bar svg { flex-shrink: 0; }
+
+/* ===== PROPERTY SUMMARY ===== */
+.property-summary {
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.prop-chip {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.prop-chip svg {
+  vertical-align: -2px;
+  margin-right: 4px;
+}
+
+/* ===== MATERIAL TABS ===== */
+.material-tabs {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.material-tabs-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.tabs-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.tabs-row::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+/* ===== SORT/FILTER BAR ===== */
+.results-bar {
+  padding: 0 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.results-count {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.results-count span { color: var(--accent); }
+
+.sort-select {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+/* ===== CONTRACTOR CARDS ===== */
+.contractor-list {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contractor-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.contractor-card:active {
+  transform: scale(0.985);
+}
+
+.contractor-card.featured {
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.12);
+}
+
+/* Best Value Ribbon */
+.best-value-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, var(--accent), #e67e00);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.card-top {
+  display: flex;
+  gap: 14px;
+  padding: 16px 16px 12px;
+}
+
+.contractor-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.featured .contractor-avatar {
+  background: linear-gradient(135deg, var(--accent), #e67e00);
+  color: #000;
+}
+
+.out-of-network .contractor-avatar {
+  background: rgba(255,255,255,0.08);
+  color: var(--gray-light);
+}
+
+.card-info { flex: 1; min-width: 0; }
+
+.contractor-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 70px;
+}
+
+.featured .contractor-name { color: var(--accent-light); }
+
+.contractor-location {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.contractor-location svg { vertical-align: -1px; margin-right: 2px; }
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stars { display: flex; gap: 1px; }
+
+.star-filled {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.star-empty {
+  color: #374151;
+  font-size: 14px;
+}
+
+.rating-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.rating-count {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.no-reviews {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Badge Row */
+.badge-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 0 16px 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.badge-network {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.badge-out {
+  background: rgba(107, 114, 128, 0.12);
+  color: var(--gray);
+  border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+.badge-feature {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-dim);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Card Bottom — Price + CTA */
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.price-block {}
+
+.price-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.price-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.featured .price-value { color: var(--accent-light); }
+
+.price-detail {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.select-btn {
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.select-btn:active { transform: scale(0.95); }
+
+.featured .select-btn {
+  background: linear-gradient(135deg, var(--accent), #e67e00);
+  color: #000;
+}
+
+.out-of-network .select-btn {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* ===== COMPARISON TABLE (MODAL) ===== */
+.comparison-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.comparison-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.comparison-sheet {
+  background: var(--bg);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 88vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(24px + var(--safe-bottom));
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.comparison-overlay.active .comparison-sheet {
+  transform: translateY(0);
+}
+
+.comparison-handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin: 10px auto 16px;
+}
+
+.comparison-header {
+  padding: 0 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.comparison-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.comparison-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.comparison-table {
+  padding: 12px 16px;
+}
+
+.comp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.comp-row.comp-featured {
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.comp-rank {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.comp-featured .comp-rank {
+  background: var(--accent);
+  color: #000;
+}
+
+.comp-info { flex: 1; min-width: 0; }
+
+.comp-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.comp-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.comp-network {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.comp-out {
+  color: var(--gray);
+}
+
+.comp-stars {
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.comp-stars-empty {
+  color: #374151;
+  font-size: 11px;
+}
+
+.comp-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.comp-featured .comp-price { color: var(--accent-light); }
+
+.comp-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--green-bg);
+  color: var(--green);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.comparison-close {
+  display: block;
+  margin: 16px auto 0;
+  padding: 14px 48px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 48px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.comparison-close:active { transform: scale(0.97); }
+
+/* ===== STICKY BOTTOM BAR ===== */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 15, 28, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 16px;
+  padding-bottom: calc(12px + var(--safe-bottom));
+  z-index: 50;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.bottom-compare-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px;
+}
+
+.bottom-lockin-btn {
+  flex: 1.5;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--accent), #e67e00);
+  color: #000;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px;
+}
+
+.bottom-compare-btn:active, .bottom-lockin-btn:active { transform: scale(0.97); }
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 24px 16px 16px;
+  text-align: center;
+}
+
+.footer-link {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.disclaimer {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding: 0 8px;
+}
+
+/* ===== WHY JOIN MODAL ===== */
+.why-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  z-index: 300;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.why-overlay.active { opacity: 1; pointer-events: auto; }
+
+.why-sheet {
+  background: var(--card);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 20px calc(24px + var(--safe-bottom));
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.why-overlay.active .why-sheet { transform: translateY(0); }
+
+.why-handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.why-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--accent-light);
+}
+
+.why-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.why-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.why-text h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.why-text p {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.why-close {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+/* ===== SELECTED STATE ===== */
+.contractor-card.selected {
+  border-color: var(--green);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+.contractor-card.selected .select-btn {
+  background: var(--green) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.contractor-card {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.contractor-card:nth-child(1) { animation-delay: 0s; }
+.contractor-card:nth-child(2) { animation-delay: 0.05s; }
+.contractor-card:nth-child(3) { animation-delay: 0.1s; }
+.contractor-card:nth-child(4) { animation-delay: 0.15s; }
+.contractor-card:nth-child(5) { animation-delay: 0.2s; }
+.contractor-card:nth-child(6) { animation-delay: 0.25s; }
+.contractor-card:nth-child(7) { animation-delay: 0.3s; }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  top: calc(20px + var(--safe-top));
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: var(--card);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+  z-index: 400;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  white-space: nowrap;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-row">
+    <button class="back-btn" aria-label="Go back">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 14L6 9l5-5"/></svg>
+    </button>
+    <div class="logo">Click<span>Roof</span></div>
+  </div>
+  <div class="address-bar">
+    <svg width="14" height="14" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.75a3.5 3.5 0 013.5 3.5C10.5 8.25 7 12.25 7 12.25S3.5 8.25 3.5 5.25A3.5 3.5 0 017 1.75z"/><circle cx="7" cy="5.25" r="1.25"/></svg>
+    1842 Riverview Dr, Bismarck ND 58501
+  </div>
+</header>
+
+<!-- PROPERTY SUMMARY -->
+<div class="property-summary">
+  <span class="prop-chip">
+    <svg width="12" height="12" fill="none" stroke="#94a3b8" stroke-width="1.6"><rect x="1" y="4" width="10" height="7" rx="1"/><path d="M3 4V2.5A3 3 0 019 2.5V4"/></svg>
+    2,240 sqft
+  </span>
+  <span class="prop-chip">
+    <svg width="12" height="12" fill="none" stroke="#94a3b8" stroke-width="1.6"><path d="M1 10L6 3l5 7"/></svg>
+    Hip Roof
+  </span>
+  <span class="prop-chip">2 Stories</span>
+  <span class="prop-chip">Built 2003</span>
+</div>
+
+<!-- MATERIAL TABS -->
+<div class="material-tabs">
+  <div class="material-tabs-label">Roof Material</div>
+  <div class="tabs-row">
+    <button class="tab-btn" data-tab="3tab">3-Tab</button>
+    <button class="tab-btn active" data-tab="arch">Architectural</button>
+    <button class="tab-btn" data-tab="metal">Metal</button>
+    <button class="tab-btn" data-tab="premium">Premium</button>
+  </div>
+</div>
+
+<!-- RESULTS BAR -->
+<div class="results-bar">
+  <div class="results-count"><span>7</span> contractors in Bismarck, ND</div>
+  <select class="sort-select" id="sortSelect">
+    <option value="value">Best Value</option>
+    <option value="price">Price: Low → High</option>
+    <option value="rating">Top Rated</option>
+    <option value="distance">Nearest</option>
+  </select>
+</div>
+
+<!-- CONTRACTOR LIST -->
+<div class="contractor-list" id="contractorList"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a class="footer-link" id="whyJoinLink">Why join the ClickRoof Network?</a>
+  <p class="disclaimer">Prices shown are estimates based on property data. In-network pricing is verified and guaranteed. Out-of-network prices are market estimates and may vary.</p>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <button class="bottom-compare-btn" id="compareBtn">Compare All</button>
+  <button class="bottom-lockin-btn" id="lockinBtn">Lock In Price</button>
+</div>
+
+<!-- COMPARISON OVERLAY -->
+<div class="comparison-overlay" id="comparisonOverlay">
+  <div class="comparison-sheet">
+    <div class="comparison-handle"></div>
+    <div class="comparison-header">
+      <div class="comparison-title">Price Comparison</div>
+      <div class="comparison-subtitle">Owens Corning Duration Architectural Shingle · 2,240 sqft hip roof</div>
+    </div>
+    <div class="comparison-table" id="comparisonTable"></div>
+    <button class="comparison-close" id="comparisonClose">Got It</button>
+  </div>
+</div>
+
+<!-- WHY JOIN OVERLAY -->
+<div class="why-overlay" id="whyOverlay">
+  <div class="why-sheet">
+    <div class="why-handle"></div>
+    <div class="why-title">Why Join the ClickRoof Network?</div>
+    <div class="why-item">
+      <div class="why-icon">&#9733;</div>
+      <div class="why-text">
+        <h4>Verified Reviews & Ratings</h4>
+        <p>Build trust with verified homeowner reviews that help you stand out from competitors.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">&#128176;</div>
+      <div class="why-text">
+        <h4>Guaranteed Pricing Visibility</h4>
+        <p>Your pricing is featured and verified, giving homeowners confidence to choose you.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">&#128200;</div>
+      <div class="why-text">
+        <h4>Priority Placement</h4>
+        <p>In-network contractors appear first with highlighted cards and "Best Value" badges.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">&#128274;</div>
+      <div class="why-text">
+        <h4>Lock-In Leads</h4>
+        <p>Homeowners can lock in your price instantly — no more chasing quotes.</p>
+      </div>
+    </div>
+    <button class="why-close" id="whyClose">Close</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== DATA =====
+const contractors = [
+  {
+    id: 1,
+    name: "Capital Exteriors",
+    location: "Bismarck, ND",
+    distance: 2.1,
+    years: 19,
+    rating: 5.0,
+    reviews: 147,
+    price: 14200,
+    inNetwork: true,
+    badges: ["Licensed", "Insured", "BBB A+", "Storm Specialist"],
+    initials: "CE",
+    bestValue: true
+  },
+  {
+    id: 2,
+    name: "Haley Roofing",
+    location: "Bismarck, ND",
+    distance: 4.3,
+    years: 12,
+    rating: 0,
+    reviews: 0,
+    price: 15800,
+    inNetwork: false,
+    badges: ["Licensed"],
+    initials: "HR"
+  },
+  {
+    id: 3,
+    name: "Northern Roofing Co.",
+    location: "Bismarck, ND",
+    distance: 5.8,
+    years: 11,
+    rating: 0,
+    reviews: 0,
+    price: 16400,
+    inNetwork: false,
+    badges: ["Licensed", "Insured"],
+    initials: "NR"
+  },
+  {
+    id: 4,
+    name: "ProRoof Dakota",
+    location: "Mandan, ND",
+    distance: 7.2,
+    years: 7,
+    rating: 0,
+    reviews: 0,
+    price: 15100,
+    inNetwork: false,
+    badges: ["Licensed"],
+    initials: "PD"
+  },
+  {
+    id: 5,
+    name: "Dakota Roofing Solutions",
+    location: "Bismarck, ND",
+    distance: 6.4,
+    years: 15,
+    rating: 0,
+    reviews: 0,
+    price: 17200,
+    inNetwork: false,
+    badges: ["Licensed", "Insured"],
+    initials: "DR"
+  },
+  {
+    id: 6,
+    name: "Midwest Storm Repair",
+    location: "Fargo, ND",
+    distance: 192,
+    years: 5,
+    rating: 0,
+    reviews: 0,
+    price: 14900,
+    inNetwork: false,
+    badges: ["Licensed"],
+    initials: "MS"
+  },
+  {
+    id: 7,
+    name: "Prairie State Roofing",
+    location: "Minot, ND",
+    distance: 112,
+    years: 9,
+    rating: 0,
+    reviews: 0,
+    price: 16800,
+    inNetwork: false,
+    badges: ["Licensed"],
+    initials: "PS"
+  }
+];
+
+let selectedContractor = null;
+
+// ===== HELPERS =====
+function formatPrice(n) {
+  return "$" + n.toLocaleString();
+}
+
+function renderStars(rating, reviews) {
+  if (reviews === 0) {
+    return `<div class="stars">${'<span class="star-empty">&#9734;</span>'.repeat(5)}</div><span class="no-reviews">No ClickRoof reviews yet</span>`;
+  }
+  let html = '<div class="stars">';
+  for (let i = 0; i < 5; i++) {
+    html += rating > i ? '<span class="star-filled">&#9733;</span>' : '<span class="star-empty">&#9734;</span>';
+  }
+  html += '</div>';
+  html += `<span class="rating-score">${rating.toFixed(1)}</span>`;
+  html += `<span class="rating-count">(${reviews} reviews)</span>`;
+  return html;
+}
+
+// ===== RENDER CARDS =====
+function renderCards(list) {
+  const container = document.getElementById("contractorList");
+  container.innerHTML = "";
+
+  list.forEach((c, i) => {
+    const isFeatured = c.inNetwork;
+    const isSelected = selectedContractor === c.id;
+
+    const card = document.createElement("div");
+    card.className = `contractor-card ${isFeatured ? "featured" : "out-of-network"} ${isSelected ? "selected" : ""}`;
+    card.dataset.id = c.id;
+
+    card.innerHTML = `
+      ${c.bestValue ? '<div class="best-value-badge">Best Value</div>' : ''}
+      <div class="card-top">
+        <div class="contractor-avatar">${c.initials}</div>
+        <div class="card-info">
+          <div class="contractor-name">${c.name}</div>
+          <div class="contractor-location">
+            <svg width="11" height="11" fill="none" stroke="#64748b" stroke-width="1.6"><path d="M5.5 1a2.75 2.75 0 012.75 2.75c0 2-2.75 5.25-2.75 5.25S2.75 5.75 2.75 3.75A2.75 2.75 0 015.5 1z"/><circle cx="5.5" cy="3.75" r="1"/></svg>
+            ${c.location} · ${c.years} years in business${c.distance < 20 ? ` · ${c.distance} mi` : ''}
+          </div>
+          <div class="rating-row">${renderStars(c.rating, c.reviews)}</div>
+        </div>
+      </div>
+      <div class="badge-row">
+        ${isFeatured ? '<span class="badge badge-network"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 5.5l2.5 2.5L8 3"/></svg> ClickRoof Network</span>' : '<span class="badge badge-out">Out of Network</span>'}
+        ${c.badges.map(b => `<span class="badge badge-feature">${b}</span>`).join("")}
+      </div>
+      <div class="card-bottom">
+        <div class="price-block">
+          <div class="price-label">Architectural Shingle</div>
+          <div class="price-value">${formatPrice(c.price)}</div>
+          <div class="price-detail">Owens Corning Duration · 2,240 sqft</div>
+        </div>
+        <button class="select-btn" data-id="${c.id}">${isSelected ? '&#10003; Selected' : 'Select'}</button>
+      </div>
+    `;
+
+    card.querySelector(".select-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      selectContractor(c.id);
+    });
+
+    container.appendChild(card);
+  });
+}
+
+function selectContractor(id) {
+  selectedContractor = selectedContractor === id ? null : id;
+  renderSorted();
+  if (selectedContractor) {
+    const c = contractors.find(x => x.id === id);
+    showToast(`${c.name} selected`);
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+// ===== SORTING =====
+function getSorted() {
+  const val = document.getElementById("sortSelect").value;
+  let list = [...contractors];
+
+  // In-network always first
+  list.sort((a, b) => {
+    if (a.inNetwork && !b.inNetwork) return -1;
+    if (!a.inNetwork && b.inNetwork) return 1;
+
+    switch (val) {
+      case "price":
+        return a.price - b.price;
+      case "rating":
+        return b.rating - a.rating || b.reviews - a.reviews;
+      case "distance":
+        return a.distance - b.distance;
+      case "value":
+      default:
+        // Value = combo of network + rating + price
+        const aScore = (a.inNetwork ? 1000 : 0) + a.rating * 100 - a.price / 100;
+        const bScore = (b.inNetwork ? 1000 : 0) + b.rating * 100 - b.price / 100;
+        return bScore - aScore;
+    }
+  });
+
+  return list;
+}
+
+function renderSorted() {
+  renderCards(getSorted());
+}
+
+document.getElementById("sortSelect").addEventListener("change", renderSorted);
+
+// ===== MATERIAL TABS =====
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    // Could swap pricing data per material — keeping architectural for demo
+    showToast(`${btn.textContent} selected`);
+  });
+});
+
+// ===== COMPARISON SHEET =====
+function renderComparison() {
+  const sorted = [...contractors].sort((a, b) => a.price - b.price);
+  const table = document.getElementById("comparisonTable");
+  table.innerHTML = "";
+
+  sorted.forEach((c, i) => {
+    const isFeat = c.inNetwork;
+    const row = document.createElement("div");
+    row.className = `comp-row ${isFeat ? "comp-featured" : ""}`;
+
+    row.innerHTML = `
+      <div class="comp-rank">${i + 1}</div>
+      <div class="comp-info">
+        <div class="comp-name">${c.name}</div>
+        <div class="comp-meta">
+          ${isFeat ? '<span class="comp-network">&#10003; In Network</span>' : '<span class="comp-out">Out of Network</span>'}
+          ${c.reviews > 0 ? `<span class="comp-stars">${"&#9733;".repeat(Math.round(c.rating))} ${c.rating}</span>` : `<span class="comp-stars-empty">${"&#9734;".repeat(5)}</span>`}
+        </div>
+        ${isFeat ? '<span class="comp-badge">Best Value</span>' : ''}
+      </div>
+      <div class="comp-price">${formatPrice(c.price)}</div>
+    `;
+    table.appendChild(row);
+  });
+}
+
+document.getElementById("compareBtn").addEventListener("click", () => {
+  renderComparison();
+  document.getElementById("comparisonOverlay").classList.add("active");
+});
+
+document.getElementById("comparisonClose").addEventListener("click", () => {
+  document.getElementById("comparisonOverlay").classList.remove("active");
+});
+
+document.getElementById("comparisonOverlay").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) {
+    document.getElementById("comparisonOverlay").classList.remove("active");
+  }
+});
+
+// ===== WHY JOIN SHEET =====
+document.getElementById("whyJoinLink").addEventListener("click", () => {
+  document.getElementById("whyOverlay").classList.add("active");
+});
+
+document.getElementById("whyClose").addEventListener("click", () => {
+  document.getElementById("whyOverlay").classList.remove("active");
+});
+
+document.getElementById("whyOverlay").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) {
+    document.getElementById("whyOverlay").classList.remove("active");
+  }
+});
+
+// ===== LOCK IN =====
+document.getElementById("lockinBtn").addEventListener("click", () => {
+  if (selectedContractor) {
+    const c = contractors.find(x => x.id === selectedContractor);
+    showToast(`Price locked with ${c.name}!`);
+  } else {
+    showToast("Select a contractor first");
+  }
+});
+
+// ===== INIT =====
+renderSorted();
+</script>
+</body>
+</html>

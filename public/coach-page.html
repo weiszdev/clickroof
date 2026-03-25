@@ -1,0 +1,294 @@
+<style>
+  .ndw-coach * { margin: 0; padding: 0; box-sizing: border-box; }
+  .ndw-coach {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #ffffff;
+    background: #1a1a2e;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .ndw-coach .sans { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+  .ndw-coach section { padding: 60px 24px; max-width: 960px; margin: 0 auto; }
+  .ndw-coach h1, .ndw-coach h2, .ndw-coach h3 { color: #c9a84c; }
+  .ndw-coach h1 { font-size: 2.6em; line-height: 1.15; margin-bottom: 16px; }
+  .ndw-coach h2 { font-size: 1.8em; margin-bottom: 24px; text-align: center; }
+  .ndw-coach h3 { font-size: 1.2em; margin-bottom: 12px; }
+  .ndw-coach p { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.7; font-size: 1.05em; color: #d4d4d4; }
+  .ndw-coach .gold { color: #c9a84c; }
+  .ndw-coach .divider { width: 60px; height: 3px; background: #c9a84c; margin: 0 auto 40px; border-radius: 2px; }
+
+  /* Buttons */
+  .ndw-coach .btn-gold {
+    display: inline-block; background: #c9a84c; color: #1a1a2e; font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 700; font-size: 1em; padding: 14px 36px; border-radius: 4px; text-decoration: none;
+    transition: background 0.25s, transform 0.15s; cursor: pointer; border: none; letter-spacing: 0.5px;
+  }
+  .ndw-coach .btn-gold:hover { background: #d4b85c; transform: translateY(-2px); }
+  .ndw-coach .btn-outline {
+    display: inline-block; border: 2px solid #c9a84c; color: #c9a84c; font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600; font-size: 0.95em; padding: 12px 30px; border-radius: 4px; text-decoration: none;
+    transition: all 0.25s; background: transparent;
+  }
+  .ndw-coach .btn-outline:hover { background: #c9a84c; color: #1a1a2e; }
+
+  /* Hero */
+  .ndw-hero { text-align: center; padding-top: 80px !important; padding-bottom: 80px !important; }
+  .ndw-hero .subtitle { font-size: 1.25em; color: #d4d4d4; max-width: 640px; margin: 0 auto 32px; font-style: italic; }
+
+  /* Two Column */
+  .ndw-twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+  .ndw-twocol .col { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 32px; border-top: 3px solid; }
+  .ndw-twocol .col-is { border-color: #c9a84c; }
+  .ndw-twocol .col-isnt { border-color: #5a5a6e; }
+  .ndw-twocol .col h3 { font-size: 1.3em; margin-bottom: 16px; }
+  .ndw-twocol .col-isnt h3 { color: #8a8a9e; }
+  .ndw-twocol ul { list-style: none; padding: 0; }
+  .ndw-twocol li { font-family: 'Segoe UI', Arial, sans-serif; color: #d4d4d4; padding: 8px 0; padding-left: 24px; position: relative; line-height: 1.5; }
+  .ndw-twocol .col-is li::before { content: "✓"; position: absolute; left: 0; color: #c9a84c; font-weight: 700; }
+  .ndw-twocol .col-isnt li::before { content: "✗"; position: absolute; left: 0; color: #8a8a9e; font-weight: 700; }
+
+  /* Framework Cards */
+  .ndw-frameworks { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+  .ndw-fcard {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(26,26,46,0.95) 100%);
+    border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 28px;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .ndw-fcard:hover { border-color: #c9a84c; transform: translateY(-3px); }
+  .ndw-fcard .fcard-tag { font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.75em; text-transform: uppercase; letter-spacing: 2px; color: #c9a84c; margin-bottom: 8px; }
+  .ndw-fcard h3 { font-size: 1.15em; margin-bottom: 10px; }
+  .ndw-fcard p { font-size: 0.95em; color: #b0b0c0; }
+
+  /* Who For */
+  .ndw-whofor ul { list-style: none; padding: 0; max-width: 700px; margin: 0 auto; }
+  .ndw-whofor li {
+    font-family: 'Segoe UI', Arial, sans-serif; color: #d4d4d4; padding: 14px 0 14px 32px;
+    position: relative; line-height: 1.6; font-size: 1.05em;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .ndw-whofor li:last-child { border-bottom: none; }
+  .ndw-whofor li::before { content: "→"; position: absolute; left: 0; color: #c9a84c; font-weight: 700; }
+
+  /* Steps */
+  .ndw-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; margin-top: 20px; }
+  .ndw-step { text-align: center; padding: 28px 20px; }
+  .ndw-step .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 52px; height: 52px; border-radius: 50%; border: 2px solid #c9a84c;
+    color: #c9a84c; font-family: Georgia, serif; font-size: 1.4em; font-weight: 700; margin-bottom: 18px;
+  }
+  .ndw-step h3 { font-size: 1.1em; margin-bottom: 10px; }
+  .ndw-step p { font-size: 0.95em; color: #b0b0c0; }
+
+  /* Pricing */
+  .ndw-pricing { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 20px; }
+  .ndw-price-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 36px 24px; text-align: center; transition: border-color 0.3s, transform 0.2s;
+  }
+  .ndw-price-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-3px); }
+  .ndw-price-card.featured { border-color: #c9a84c; background: rgba(201,168,76,0.06); }
+  .ndw-price-card .price-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1.5px; color: #8a8a9e; margin-bottom: 12px; }
+  .ndw-price-card .price-amt { font-size: 2.4em; color: #c9a84c; font-weight: 700; margin-bottom: 6px; }
+  .ndw-price-card .price-desc { font-family: 'Segoe UI', Arial, sans-serif; color: #b0b0c0; font-size: 0.95em; margin-bottom: 24px; line-height: 1.5; }
+  .ndw-price-card .btn-gold, .ndw-price-card .btn-outline { width: 100%; text-align: center; padding: 12px 20px; }
+
+  /* Stats Bar */
+  .ndw-stats { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; padding: 40px 24px !important; background: rgba(201,168,76,0.05); border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15); }
+  .ndw-stat { text-align: center; }
+  .ndw-stat .stat-num { font-size: 2.2em; color: #c9a84c; font-weight: 700; display: block; }
+  .ndw-stat .stat-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.85em; color: #8a8a9e; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+
+  /* Final CTA */
+  .ndw-final-cta { text-align: center; padding: 80px 24px !important; }
+  .ndw-final-cta h2 { font-size: 2.2em; margin-bottom: 16px; }
+  .ndw-final-cta p { max-width: 560px; margin: 0 auto 32px; font-size: 1.1em; }
+
+  /* Footer */
+  .ndw-footer {
+    text-align: center; padding: 40px 24px 32px !important; border-top: 1px solid rgba(255,255,255,0.08);
+    max-width: 960px; margin: 0 auto;
+  }
+  .ndw-footer .footer-brand { color: #c9a84c; font-size: 1.2em; font-weight: 700; margin-bottom: 16px; }
+  .ndw-footer .footer-links { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ndw-footer .footer-links a { font-family: 'Segoe UI', Arial, sans-serif; color: #8a8a9e; text-decoration: none; font-size: 0.9em; transition: color 0.2s; }
+  .ndw-footer .footer-links a:hover { color: #c9a84c; }
+  .ndw-footer .footer-loc { font-family: 'Segoe UI', Arial, sans-serif; color: #5a5a6e; font-size: 0.8em; }
+
+  /* Section alternating backgrounds */
+  .ndw-alt-bg { background: rgba(255,255,255,0.02); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .ndw-coach section { padding: 44px 18px; }
+    .ndw-coach h1 { font-size: 1.9em; }
+    .ndw-coach h2 { font-size: 1.4em; }
+    .ndw-twocol, .ndw-frameworks, .ndw-steps, .ndw-pricing { grid-template-columns: 1fr; }
+    .ndw-stats { gap: 32px; }
+    .ndw-hero { padding-top: 50px !important; padding-bottom: 50px !important; }
+    .ndw-final-cta { padding: 50px 18px !important; }
+    .ndw-final-cta h2 { font-size: 1.7em; }
+  }
+</style>
+
+<div class="ndw-coach">
+
+  <!-- HERO -->
+  <section class="ndw-hero">
+    <h1>NotDrWise Coaching</h1>
+    <p class="subtitle sans">I won't tell you what to do. I'll teach you how to think through it.</p>
+    <a href="https://calendly.com/notdrwise/free-15" target="_blank" rel="noopener" class="btn-gold">Book a Free Consultation</a>
+  </section>
+
+  <!-- WHAT THIS IS / ISN'T -->
+  <section class="ndw-alt-bg">
+    <h2>What This Is &amp; What This Isn't</h2>
+    <div class="divider"></div>
+    <div class="ndw-twocol">
+      <div class="col col-is">
+        <h3>This Is</h3>
+        <ul>
+          <li>Framework-based thinking that sticks with you</li>
+          <li>Real conversation — no scripts, no fluff</li>
+          <li>Faith-grounded guidance that meets you where you are</li>
+          <li>Accountability that actually moves the needle</li>
+        </ul>
+      </div>
+      <div class="col col-isnt">
+        <h3>This Isn't</h3>
+        <ul>
+          <li>Therapy or clinical counseling</li>
+          <li>Medical advice or diagnosis</li>
+          <li>Generic life coaching from a playbook</li>
+          <li>Motivational fluff with no substance</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAMEWORKS -->
+  <section>
+    <h2>The Frameworks</h2>
+    <div class="divider"></div>
+    <p style="text-align:center; max-width:620px; margin:0 auto 28px; font-size:1em;">Every session is built on a proven thinking framework — not opinions. Here's what we work with.</p>
+    <div class="ndw-frameworks">
+      <div class="ndw-fcard">
+        <div class="fcard-tag">Framework</div>
+        <h3>R3 Framework</h3>
+        <p>Recognize. Reframe. Respond. A three-step process for breaking reactive patterns and making intentional decisions under pressure.</p>
+      </div>
+      <div class="ndw-fcard">
+        <div class="fcard-tag">Model</div>
+        <h3>BENR Model</h3>
+        <p>Beliefs. Emotions. Narratives. Responses. Trace the root of your behavior back to the belief driving it — then rebuild from there.</p>
+      </div>
+      <div class="ndw-fcard">
+        <div class="fcard-tag">Framework</div>
+        <h3>Crisis Clarity</h3>
+        <p>Decision-making in chaos. When everything feels urgent, this framework helps you isolate what actually matters and act on it.</p>
+      </div>
+      <div class="ndw-fcard">
+        <div class="fcard-tag">Framework</div>
+        <h3>Trauma Bond</h3>
+        <p>Understanding relational patterns. Identify the cycles that keep you stuck in unhealthy connections — and learn how to break free.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO THIS IS FOR -->
+  <section class="ndw-alt-bg ndw-whofor">
+    <h2>Who This Is For</h2>
+    <div class="divider"></div>
+    <ul>
+      <li>Men navigating marriage conflict, mental health battles, or faith crises</li>
+      <li>Parents committed to breaking generational cycles</li>
+      <li>Anyone stuck in a loop of overthinking without resolution</li>
+      <li>People who've tried therapy but want something more direct</li>
+    </ul>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <h2>How It Works</h2>
+    <div class="divider"></div>
+    <div class="ndw-steps">
+      <div class="ndw-step">
+        <div class="step-num">1</div>
+        <h3>Book a Consultation</h3>
+        <p>Start with a free 15-minute call. No pressure, no pitch — just a real conversation about where you are.</p>
+      </div>
+      <div class="ndw-step">
+        <div class="step-num">2</div>
+        <h3>Assess &amp; Frame</h3>
+        <p>We identify the right framework for your situation. Not every problem needs the same tool.</p>
+      </div>
+      <div class="ndw-step">
+        <div class="step-num">3</div>
+        <h3>Leave with Clarity</h3>
+        <p>You walk away with a thinking tool — not just advice. Something you can use long after the session ends.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="ndw-alt-bg">
+    <h2>Investment</h2>
+    <div class="divider"></div>
+    <div class="ndw-pricing">
+      <div class="ndw-price-card">
+        <div class="price-label">Get Started</div>
+        <div class="price-amt">Free</div>
+        <div class="price-desc">15-minute consultation<br>See if coaching is the right fit</div>
+        <a href="https://calendly.com/notdrwise/free-15" target="_blank" rel="noopener" class="btn-gold">Book Free Call</a>
+      </div>
+      <div class="ndw-price-card featured">
+        <div class="price-label">Single Session</div>
+        <div class="price-amt">$49</div>
+        <div class="price-desc">60-minute deep dive<br>One framework, full clarity</div>
+        <a href="https://calendly.com/notdrwise/free-15" target="_blank" rel="noopener" class="btn-gold">Book Now</a>
+      </div>
+      <div class="ndw-price-card">
+        <div class="price-label">4-Session Package</div>
+        <div class="price-amt">$175</div>
+        <div class="price-desc">Four 60-minute sessions<br>Sustained transformation</div>
+        <a href="https://calendly.com/notdrwise/free-15" target="_blank" rel="noopener" class="btn-outline">Book Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS / SOCIAL PROOF -->
+  <section class="ndw-stats">
+    <div class="ndw-stat">
+      <span class="stat-num">60+</span>
+      <span class="stat-label">Clients Served</span>
+    </div>
+    <div class="ndw-stat">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Frameworks</span>
+    </div>
+    <div class="ndw-stat">
+      <span class="stat-num">4.9★</span>
+      <span class="stat-label">Client Rating</span>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="ndw-final-cta">
+    <h2>Ready to Think Clearly?</h2>
+    <p class="sans">Stop spinning. Start thinking. Book your free consultation and find out what framework fits your situation.</p>
+    <a href="https://calendly.com/notdrwise/free-15" target="_blank" rel="noopener" class="btn-gold">Book Your Free 15 Minutes</a>
+  </section>
+
+  <!-- FOOTER -->
+  <section class="ndw-footer">
+    <div class="footer-brand">NotDrWise</div>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@NotDrWise" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://podcasters.spotify.com/pod/show/notdrwise" target="_blank" rel="noopener">Podcast</a>
+      <a href="https://www.instagram.com/notdrwise" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:notdrwise@gmail.com">Contact</a>
+    </div>
+    <div class="footer-loc">North Dakota &nbsp;·&nbsp; Faith-Grounded Frameworks for Real Life</div>
+  </section>
+
+</div>
