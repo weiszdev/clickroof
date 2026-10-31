@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Possible hail near Bismarck — 2026-07-10 UTC</title>
+  <meta name="description" content="Radar-estimated hail signatures near Bismarck, North Dakota. Possible hail damage only, not a confirmed inspection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#0A1628; --amber:#F59E0B; --muted:#94A3B8; --white:#FAFAFA; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"DM Sans",sans-serif; background:var(--navy); color:var(--white); }
+    header, main, footer { max-width: 880px; margin: 0 auto; padding: 1.25rem 1.25rem; }
+    a { color: var(--amber); }
+    h1 { font-family: Syne, sans-serif; font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.15; margin: 0.4rem 0 0.6rem; }
+    .eyebrow { color: var(--amber); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    p { color: var(--muted); line-height: 1.55; }
+    #mapWrap svg { width: 100%; height: auto; display: block; border-radius: 12px; }
+    form { display: grid; grid-template-columns: 2fr 1fr 70px 90px auto; gap: 0.5rem; align-items: end; margin: 1rem 0; }
+    label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.75rem; color: var(--muted); }
+    input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: var(--white); border-radius: 8px; padding: 0.7rem 0.6rem; font: inherit; }
+    button { background: var(--amber); color: var(--navy); font-weight: 700; border: 0; border-radius: 10px; padding: 0.75rem 1rem; cursor: pointer; }
+    #checkResult { color: var(--white); }
+    footer { border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.78rem; }
+    @media (max-width: 720px) { form { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body data-storm-date="2026-07-10">
+  <header>
+    <a href="../index.html">← ClickRoof</a>
+    <div class="eyebrow">Bismarck storm check</div>
+    <h1 id="stormTitle">Hail near Bismarck</h1>
+    <p id="stormLead">Loading radar signatures…</p>
+    <p id="stormCount"></p>
+  </header>
+  <main>
+    <div id="mapWrap"></div>
+    <h2 style="font-family:Syne,sans-serif;font-size:1.25rem;margin-top:1.5rem;">Check my address</h2>
+    <p>Looks up this static Bismarck file within about 10 km. Wording stays at possible hail damage.</p>
+    <form id="checkForm">
+      <label>Street address<input id="addr" name="address" autocomplete="street-address" required placeholder="123 Main St" /></label>
+      <label>City<input id="city" name="city" value="Bismarck" autocomplete="address-level2" /></label>
+      <label>State<input id="region" name="state" value="ND" autocomplete="address-level1" /></label>
+      <label>ZIP<input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="58501" /></label>
+      <button type="submit">Check my address</button>
+    </form>
+    <p id="checkResult"></p>
+    <a id="quoteLink" hidden href="../index.html">Continue to the quote</a>
+  </main>
+  <footer>
+    <p>North Dakota insurance-claim contracts: on a residential roofing contract paid by insurance, you may cancel until midnight of the fifth business day after you sign, or after a coverage denial. NDCC 26.1-39.2. ClickRoof does not confirm hail damage and does not offer to pay a deductible.</p>
+    <p>Points are NEXRAD hail-signature locations from NOAA NCEI SWDI, not a measured swath at every house. <a href="index.html">All Bismarck storm pages</a></p>
+  </footer>
+  <script src="../js/track.js?v=3"></script>
+  <script src="../js/geo.js?v=3"></script>
+  <script src="../js/hail.js?v=3"></script>
+  <script src="../js/storm-page.js?v=3"></script>
+</body>
+</html>

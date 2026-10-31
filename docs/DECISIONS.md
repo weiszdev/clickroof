@@ -36,10 +36,10 @@
 - Rationale: Balances homeowner urgency with contractor operational reality. After 24 hrs, auto-route to next contractor. Homeowner deposit never at risk.
 
 **Decision 7: Show 2–4 contractor quotes simultaneously (not just one)**
-- Rationale: Priceline model — comparison builds trust and conversion. Homeowners who see options close 40% faster than single-quote flows. Each contractor sets their own price within a fair-range envelope.
+- Rationale: Comparison is part of the marketplace idea. An earlier draft cited a close-rate lift that was not sourced; that figure was removed.
 
-**Decision 8: Roof complexity shown as 6 visual images, not a dropdown**
-- Rationale: Homeowners don't know roofing terminology. Visual matching (simple gable to complex hip/valley/dormers) is faster and more accurate. Reduces quote error rate by estimated 35%.
+**Decision 8: Roof confirm instead of a 6-photo picker**
+- Rationale: The first prototype asked homeowners to match one of six roof drawings. The quote flow now shows squares, pitch, and plane count and asks them to confirm or edit. An unsourced "35% fewer errors" claim that used to sit here was removed. Without a Google Solar key the figures are a labeled sample.
 
 **Decision 9: Deposit captured before contractor acceptance (not after)**
 - Rationale: Creates job-ready lead for contractor. Eliminates tire-kickers. Contractor SLA guarantee protects homeowner. Industry precedent: Priceline's "Name Your Price" pre-commitment model.
@@ -55,7 +55,7 @@
 - Rationale: Stripe supports Apple Pay, Google Pay, ACH, card, Venmo via Stripe Link. Single integration for all payment methods. Better fraud tooling.
 
 **Decision 12: Mobile-first, funnel-optimized layout**
-- Rationale: 67%+ of homeowner research happens on mobile. Quote flow designed for one-thumb use. Apple Pay / Google Pay one-tap checkout works best on iOS/Android native browsers.
+- Rationale: The quote flow is laid out for a phone screen. An unsourced mobile-traffic percentage that used to sit here was removed.
 
 **Decision 13: EagleView as primary measurement API, GeoSpan as backup**
 - Rationale: EagleView has the deepest U.S. coverage and is the industry standard. GeoSpan is faster/cheaper for initial quote estimates. Two-tier: GeoSpan for instant quote, EagleView for binding proposal.
@@ -65,10 +65,10 @@
 ### MARKETING DECISIONS
 
 **Decision 14: Private pilot ambassador program as go-to-market**
-- Rationale: (a) Personal connection beats cold digital outreach 4–6x in contractor sign-up rate. (b) Pilots need flight hours (win-win). (c) "Company that sends pilots" is a memorable, PR-worthy brand story. (c) Low cost per acquisition vs. paid ads for B2B contractor sales.
+- Rationale: In-person contractor outreach was the working idea. An unsourced multiple versus cold outreach that used to sit here was removed.
 
 **Decision 15: Anchor city = Bismarck ND (Capital Exteriors / Jon Roise)**
-- Rationale: Founding partner, proven relationship, mid-size market ideal for proof of concept, North Dakota has lowest contractor competition and highest roofer wages nationally.
+- Rationale: Founding partner is in Bismarck, and the hail file and storm pages are built for that market. An unsourced claim about statewide wages and competition that used to sit here was removed.
 
 **Decision 16: Storm season launch timing (April–May)**
 - Rationale: Hail season peaks April–June in Midwest. Homeowners are actively searching. Insurance claims processing creates urgency. First mover advantage in storm-affected markets.
@@ -94,7 +94,7 @@
 - Rationale: Different audiences, different design languages, different auth flows. Public site is conversion-focused, emotional. Contractor portal is utility-focused, data-dense.
 
 **Decision 21: Public site is static HTML/JS for maximum speed**
-- Rationale: Core Web Vitals = Google ranking. One-second delay on mobile = 20% conversion drop. Static HTML loads in under 1 second vs. 3–4s for React SPAs.
+- Rationale: The published site is static HTML on GitHub Pages. An unsourced conversion-drop percentage that used to sit here was removed. The contractor portal mock is also static HTML; a React portal was planned and is not what is in the repo.
 
 **Decision 22: Contractor portal is React SPA**
 - Rationale: Complex state management (job board, quote config, analytics), real-time updates, form-heavy interface — React is appropriate here.

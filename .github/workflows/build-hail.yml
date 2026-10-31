@@ -1,0 +1,26 @@
+# Manual only. Builds the Bismarck hail JSON and storm pages, then uploads
+# them as an artifact. It does not commit and it does not push.
+name: Build hail dataset
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build Bismarck hail JSON and storm pages
+        run: python scripts/build_hail.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bismarck-hail
+          path: |
+            public/data/hail-bismarck.json
+            public/storms/
