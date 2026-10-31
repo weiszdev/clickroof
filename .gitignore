@@ -13,6 +13,7 @@ out/
 .env
 .env.local
 .env.*.local
+public/config.js
 
 # OS files
 .DS_Store

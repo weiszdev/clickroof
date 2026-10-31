@@ -17,69 +17,70 @@ Inspired by **Jon Roise / Capital Exteriors** — Bismarck, ND — founded 2006.
 ```
 clickroof/
 ├── public/
-│   └── index.html              # Consumer-facing public website
+│   ├── index.html              # Homeowner site and quote flow
+│   ├── js/                     # Hail lookup, roof range, step tracking
+│   ├── data/hail-bismarck.json # Static hail file (built, not fetched live)
+│   └── storms/                 # One page per Bismarck hail day
+├── scripts/build_hail.py       # NOAA SWDI → JSON + storm pages
 ├── contractor-portal/
-│   └── index.html              # Contractor backend dashboard
+│   └── index.html              # Contractor portal mock
 ├── docs/
-│   ├── BUSINESS_PLAN.md        # Full business plan, revenue model, market research
-│   └── DECISIONS.md            # All design & architecture decisions with rationale
-└── README.md
+│   ├── BUSINESS_PLAN.md
+│   └── DECISIONS.md
+└── .github/workflows/build-hail.yml  # Manual-only hail rebuild
 ```
 
 ---
 
-## Live Preview
+## Live site
 
-Open `public/index.html` in any browser to see the consumer site.
-Open `contractor-portal/index.html` to see the contractor portal.
+GitHub Pages serves this repo from the `main` branch at the repository root ([weiszdev.github.io/clickroof](https://weiszdev.github.io/clickroof/)). `.nojekyll` disables Jekyll. The root `index.html` redirects to `public/index.html`.
+
+Local preview:
+
+```bash
+python3 -m http.server 8765
+```
+
+Then open `http://localhost:8765/public/index.html` and `http://localhost:8765/public/storms/`. A file:// open will not load the hail JSON.
 
 ---
 
 ## Key Features
 
 ### Consumer Site (`public/index.html`)
-- Address → instant aerial property data pull
-- 5-step quote wizard (address → roof type → materials → quotes → deposit)
-- Multi-contractor comparison (Priceline-style)
-- Apple Pay / Google Pay / Venmo / Card checkout
-- Price-lock deposit with auto-generated contract
-- Mobile-first, funnel-optimized layout
+- Address → roof confirm (squares, pitch, planes) → anonymous price range → contact
+- Google Solar only when a key is supplied in the browser; otherwise a labeled sample
+- Possible-hail line from `public/data/hail-bismarck.json` within about 10 km
+- Contact form: name, phone or email, one consent checkbox per named roofer
+- Step events on `window.clickroofEvents` (no analytics vendor)
 
 ### Contractor Portal (`contractor-portal/index.html`)
 - Real-time job board with deposit-verified leads
 - One-click accept/decline with homeowner notification
 - Pricing configuration per material and complexity
 - Revenue analytics + monthly chart
-- Storm alert system with affected homes count
+- Possible-hail notice (not a damage confirmation)
 - Service area management
-- Ratings dashboard
+- Reviews panel stays empty until real ClickRoof reviews exist
 
 ---
 
-## Market Data
+## Hail file
 
-- **$31B** U.S. roofing market (2024)
-- **101,679** roofing companies in the U.S.
-- **$21,050–$30,680** average full roof replacement (2025)
-- **6.6% CAGR** through 2032
-- **0%** current e-commerce penetration in residential roofing
+`scripts/build_hail.py` pulls NOAA NCEI SWDI hail signatures for the Bismarck area (the same nx3hail records as the monthly CSVs on ncei.noaa.gov) and writes `public/data/hail-bismarck.json` plus `public/storms/<date>-bismarck.html`. MRMS MESH grids on `s3://noaa-mrms-pds` are optional (`--with-mesh`, needs `grib_ls`). If NOAA cannot be reached, the script keeps an existing real file, or writes data labeled `sample`.
 
----
+```bash
+python3 scripts/build_hail.py
+```
 
-## Revenue Model
-
-| Source | Est. Year 1 | Est. Year 3 |
-|--------|-------------|-------------|
-| Contractor subscriptions ($199–$699/mo) | $1.8M | $18M |
-| Platform deposit fees (1.5%) | $432K | $5.4M |
-| Data/measurement upsells | $200K | $1.5M |
-| **Total** | **~$2.4M** | **~$25M** |
+`.github/workflows/build-hail.yml` runs that script on manual dispatch only and uploads an artifact. It does not commit.
 
 ---
 
 ## Pilot Ambassador Marketing Program
 
-Private pilots (PPL/IFR) visit cities on "roofing road trips" to sign up anchor contractors in each new market. Win-win: pilots earn flight hours + commission, ClickRoof gets warm in-person B2B leads at 4–6x higher conversion than cold digital.
+Private pilots (PPL/IFR) visit cities on roofing road trips to sign up anchor contractors. An unsourced conversion multiple that used to sit in this paragraph was removed.
 
 ---
 
@@ -92,7 +93,9 @@ Owner: Jon Roise
 
 ---
 
-## Tech Stack (Planned Production)
+## Tech stack
+
+GitHub Pages publishes the static HTML in this repo. The table below is an old production plan, not what is deployed.
 
 | Layer | Technology |
 |-------|-----------|
@@ -107,20 +110,6 @@ Owner: Jon Roise
 | Hosting | Vercel + Railway |
 
 ---
-
-## Startup Cost Estimate
-
-| Item | Range |
-|------|-------|
-| Platform development (MVP) | $85K–$140K |
-| Legal + contracts | $12K–$20K |
-| Payment integration | $3K–$5K |
-| EagleView API | $5K–$10K |
-| Branding | $8K–$15K |
-| 10-city pilot program | $25K–$40K |
-| Year 1 marketing | $50K–$100K |
-| Year 1 operations | $180K–$250K |
-| **Seed Requirement** | **$370K–$580K** |
 
 ---
 
