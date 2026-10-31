@@ -34,3 +34,5 @@ npm-debug.log*
 # Misc
 *.map
 .cache/
+__pycache__/
+*.pyc
